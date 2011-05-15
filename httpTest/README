@@ -1,0 +1,9 @@
+#to build:
+qmake -project
+qmake
+make
+
+#to execute:
+./http www.baidu.com /index.html
+#第二个参数的斜杠必须要有,否则会报错
+#暂时程序必须用ctrl+c退出
