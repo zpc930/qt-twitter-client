@@ -27,8 +27,8 @@ public:
     HttpClient(char* host);
     char* getHost() const;
     void setHost(char* host);
-    Response* httpRequest(char* url, PostParameter* postParams, int count, bool authenticated, char* httpMethod);
     Response* httpRequest(char* url, bool authenticated);
+    Response* httpRequest(char* url, QList<PostParameter*> &paras, bool authenticated);
 public slots:
     void responseReceived(const QHttpResponseHeader &);
     void httpDone(bool);
@@ -39,6 +39,7 @@ private:
     QHttp* http;
     QEventLoop* loop;
     int status;
+    Response* httpRequest(char* url, QList<PostParameter*> &paras, char* httpMethod);
 };
 
 #endif
