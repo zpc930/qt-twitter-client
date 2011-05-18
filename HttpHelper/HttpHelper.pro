@@ -9,5 +9,5 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += HttpClient.h PostParameter.h Response.h
-SOURCES += HttpClient.cpp PostParameter.cpp Response.cpp
+HEADERS += HttpClient.h PostParameter.h Response.h BasicAuthorization.h
+SOURCES += HttpClient.cpp PostParameter.cpp Response.cpp BasicAuthorization.cpp

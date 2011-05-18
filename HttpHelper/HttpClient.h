@@ -1,7 +1,7 @@
 /*
-* a class to process HTTP request/response
-* Author: 吕进
-**/
+* 功能：定义了Http协议的相关属性和方法
+* 作者：吕进
+*/
 
 #ifndef __HTTP_CLIENT_H__
 #define __HTTP_CLIENT_H__
@@ -27,8 +27,7 @@ public:
     HttpClient(char* host);
     char* getHost() const;
     void setHost(char* host);
-    Response* httpRequest(char* url, bool authenticated);
-    Response* httpRequest(char* url, QList<PostParameter*> &paras, bool authenticated);
+    Response* httpRequest(char* url, char* authInfo);
 public slots:
     void responseReceived(const QHttpResponseHeader &);
     void httpDone(bool);
@@ -39,7 +38,7 @@ private:
     QHttp* http;
     QEventLoop* loop;
     int status;
-    Response* httpRequest(char* url, QList<PostParameter*> &paras, char* httpMethod);
+    Response* httpRequest(char* url, QList<PostParameter*>& postParams, char* authInfo, char* httpMethod);
 };
 
 #endif

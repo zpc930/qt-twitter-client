@@ -1,7 +1,7 @@
 /*
-* a class to process HTTP request/response
-* Author: 吕进
-**/
+* 功能：定义了Http协议的相关属性和方法
+* 作者：吕进
+*/
 
 #include <iostream>
 #include <QtNetwork/QHttp>
@@ -40,12 +40,19 @@ HttpClient::HttpClient(char* host)
  * 发送http请求，获取response
  * url           : 请求的url
  * postParams    : post方法的所有参数
+ * authInfo      : 验证信息字符串，为NULL表示不需要验证
  * httpMethod    : 请求方法：GET or POST or DELETE
  * 返回服务器的response
  */
-Response* HttpClient::httpRequest(char* url, QList<PostParameter*>& postParams, char* httpMethod)
+Response* HttpClient::httpRequest(char* url, QList<PostParameter*>& postParams, char* authInfo, char* httpMethod)
 {
     Response* response = new Response();
+    QHttpRequestHeader header;
+    
+    // 判断是否需要身份验证
+    if (authInfo != NULL) {
+        header.setValue("Authorization", authInfo);
+    }
 
     // 注册收到response header的事件响应
     connect(this->http, SIGNAL(responseHeaderReceived(const QHttpResponseHeader&)),
@@ -60,18 +67,18 @@ Response* HttpClient::httpRequest(char* url, QList<PostParameter*>& postParams, 
         http->setHost(this->host);
         if (httpMethod == HTTP_METHOD_POST) {
             // 生成post参数列表并发送post请求
-            cout<<"before"<<endl;
+            header.setRequest(HTTP_METHOD_POST, url);
             QString paras = PostParameter::generatePostParameter(postParams);
-            cout<<"after"<<endl;
-            http->post(url, paras.toUtf8());
+            http->request(header, paras.toUtf8());
         }
         else if (httpMethod == HTTP_METHOD_GET) {
             // 发送get请求
-            http->get(url);
+            header.setRequest(HTTP_METHOD_GET, url);
+            http->request(header);
         }
         else if (httpMethod == HTTP_METHOD_DELETE) {
             // 发送delete请求
-            QHttpRequestHeader header(HTTP_METHOD_DELETE, url);
+            header.setRequest(HTTP_METHOD_DELETE, url);
             http->request(header);
         }
 
@@ -79,7 +86,9 @@ Response* HttpClient::httpRequest(char* url, QList<PostParameter*>& postParams, 
         loop->exec();
 
         // 循环结束，如果请求成功，为response赋值
+        cout<<"http status:"<<status<<endl;
         if (status == HTTP_STATUS_SUCCESS) {
+            cout<<http->readAll().constData()<<endl;
             response->setResponseAsString(http->readAll().constData());
         }
     }
@@ -91,27 +100,13 @@ Response* HttpClient::httpRequest(char* url, QList<PostParameter*>& postParams, 
 /*
  * 发送http请求，获取response
  * url           : 请求的url
- * authenticated : 是否需要身份认证
+ * authInfo      : 身份验证信息，为NULL表示不需要身份验证
  * 返回服务器的response
  */
-Response* HttpClient::httpRequest(char* url, bool authenticated)
+Response* HttpClient::httpRequest(char* url, char* authInfo)
 {
-}
-
-/*
- * 发送http请求，获取response
- * url           : 请求的url
- * paras         : post参数列表
- * authenticated : 是否需要身份认证
- * 返回服务器的response
- */
-Response* HttpClient::httpRequest(char* url, QList<PostParameter*> &paras, bool authenticated)
-{
-    paras.append(new PostParameter("source", "1596803225"));
-    if (authenticated) {
-        paras.append(new PostParameter("Authorization", "onlyone509@163.com:onlyone053601"));
-    }
-    return this->httpRequest(url, paras, HTTP_METHOD_POST);
+    QList<PostParameter*> paras;
+    return this->httpRequest(url, paras, authInfo, HTTP_METHOD_GET);
 }
 /*
  * 获取服务器的地址Host
@@ -151,11 +146,11 @@ void HttpClient::responseReceived(const QHttpResponseHeader& header)
  */
 void HttpClient::httpDone(bool error)
 {
-    loop->exit();
     if (error) {
         cout<<"error"<<endl;
     }
     else {
         cout<<"success"<<endl;
     }
+    loop->exit();
 }
