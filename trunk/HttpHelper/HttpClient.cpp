@@ -88,7 +88,6 @@ Response* HttpClient::httpRequest(char* url, QList<PostParameter*>& postParams, 
         // 循环结束，如果请求成功，为response赋值
         cout<<"http status:"<<status<<endl;
         if (status == HTTP_STATUS_SUCCESS) {
-            cout<<http->readAll().constData()<<endl;
             response->setResponseAsString(http->readAll().constData());
         }
     }

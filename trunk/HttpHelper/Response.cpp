@@ -58,7 +58,13 @@ string Response::responseAsString() const
  */
 QDomDocument* Response::responseAsDocument()
 {
+    if (this->asString.empty()) {
+        return NULL;
+    }
     if (NULL == asDocument) {
+        this->asDocument = new QDomDocument();
+        QString str(this->asString.c_str());
+        this->asDocument->setContent(str);
     }
     return asDocument;
 }
