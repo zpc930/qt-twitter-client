@@ -24,6 +24,8 @@ PostParameter::PostParameter()
  */
 PostParameter::PostParameter(const char* name, const char* value)
 {
+    this->name = NULL;
+    this->value = NULL;
     this->setName(name);
     this->setValue(value);
 }
@@ -35,6 +37,8 @@ PostParameter::PostParameter(const char* name, const char* value)
  */
 PostParameter::PostParameter(const char* name, const int value)
 {
+    this->name = NULL;
+    this->value = NULL;
     this->setName(name);
     this->setValue(value);
 }
@@ -46,6 +50,8 @@ PostParameter::PostParameter(const char* name, const int value)
  */
 PostParameter::PostParameter(const char* name, const double value)
 {
+    this->name = NULL;
+    this->value = NULL;
     this->setName(name);
     this->setValue(value);
 }
