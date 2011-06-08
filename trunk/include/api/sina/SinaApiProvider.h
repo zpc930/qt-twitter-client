@@ -1,10 +1,14 @@
 #ifndef SINAAPIPROVIDER_H
 #define SINAAPIPROVIDER_H
 
-#include "SinaParam.h"
-#include "apiprovider.h"
+#include <api/ApiProvider.h>
+#include <api/sina/SinaParam.h>
 
-#define SINA_WEIBO_URL "api.t.sina.com.cn"
+
+#define SINA_WEIBO_URL "http://api.t.sina.com.cn"
+
+#define SINA_DEFAULT_APP_KEY "3270683373"
+#define SINA_DEFAULT_APP_SECRET "74eeee59407de92f1e6394157f090a36"
 
 using namespace std;
 

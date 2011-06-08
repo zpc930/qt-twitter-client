@@ -1,6 +1,6 @@
-#include <ApiProvider/SinaApiProvider.h>
-#include <ApiProvider/SinaApi.h>
-#include <ApiProvider/SinaParam.h>
+#include <api/sina/SinaApiProvider.h>
+#include <api/sina/SinaApi.h>
+#include <api/sina/SinaParam.h>
 
 #define FAMILY_NAME "users"
 
