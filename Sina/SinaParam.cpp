@@ -1,7 +1,7 @@
 #include <string>
-#include <ApiProvider/SinaParam.h>
-#include <ApiProvider/SinaApi.h>
-#include <ApiProvider/ApiProvider_global.h>
+#include <api/sina/SinaApiProvider.h>
+#include <api/sina/SinaParam.h>
+#include <api/sina/SinaApi.h>
 
 using namespace std;
 

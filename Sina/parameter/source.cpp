@@ -1,6 +1,6 @@
 
 #include <string>
-#include <ApiProvider/SinaParam.h>
+#include <api/sina/SinaParam.h>
 
 using namespace std;
 

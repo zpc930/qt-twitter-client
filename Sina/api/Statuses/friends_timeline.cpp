@@ -1,6 +1,6 @@
-#include <ApiProvider/SinaApiProvider.h>
-#include <ApiProvider/SinaApi.h>
-#include <ApiProvider/SinaParam.h>
+#include <api/sina/SinaApiProvider.h>
+#include <api/sina/SinaApi.h>
+#include <api/sina/SinaParam.h>
 
 #define FAMILY_NAME "statuses"
 
@@ -52,7 +52,7 @@ list<Status> SinaApiProvider::__getFriendsTimeline(int feature_code, long long s
         }
         id++;
     }
-    urlquery = api->toString(SPServer, this->MiniBlogurl);
+    urlquery = api->toString(SPServer);
     /*to-be-continue*/
     statuses.clear();
     return statuses;

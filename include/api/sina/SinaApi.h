@@ -2,7 +2,7 @@
 #define SINAAPI_H
 
 #include <string>
-#include "ApiProvider_global.h"
+#include <api/ApiGlobal.h>
 
 using namespace std;
 
@@ -19,7 +19,7 @@ public:
     void setUrlString(int param_id, string param_string);
 
     SinaApi(string family, string name, int feature_code, int all_param);
-    string toString(class SinaParamServer * SPServer, string targetUrl);
+    string toString(class SinaParamServer * SPServer);
 };
 
 #endif // SINAAPI_H

@@ -4,9 +4,9 @@
 using namespace std;
 
 #include <list>
-#include "ApiProvider_global.h"
+#include <api/ApiGlobal.h>
 
-class APIPROVIDERSHARED_EXPORT ApiProvider {
+class ApiProvider {
 public:
     ApiProvider();
 };
@@ -36,7 +36,6 @@ public:
 class MiniBlogProvider
 {
 protected:
-    string MiniBlogurl;
 public:
     /*Statuses*/
     virtual list<Status> getFriendsTimeline(void) = 0;

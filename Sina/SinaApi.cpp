@@ -1,8 +1,8 @@
 #include <string>
-#include <ApiProvider/SinaApi.h>
-#include <ApiProvider/SinaParam.h>
-#include <ApiProvider/SinaApiProvider.h>
-#include <ApiProvider/ApiProvider_global.h>
+#include <api/ApiGlobal.h>
+#include <api/sina/SinaApi.h>
+#include <api/sina/SinaParam.h>
+#include <api/sina/SinaApiProvider.h>
 
 SinaApi::SinaApi(string family, string name, int required_param, int all_param)
 {
@@ -13,17 +13,14 @@ SinaApi::SinaApi(string family, string name, int required_param, int all_param)
     this->query_string = "?";
 }
 
-string SinaApi::toString(class SinaParamServer * SPServer, string targetUrl)
+string SinaApi::toString(class SinaParamServer * SPServer)
 {
     string Str;
 
     this->query_string += SPServer->getDefaultString(this->needed_param);
     /*只支持xml*/
-    Str =  targetUrl + "/" + this->family + "/" + this->name + ".xml" + this->query_string;
+    Str =  "/" +this->family + "/" + this->name + ".xml" + this->query_string;
     Str.erase(Str.end() - 1); /*删掉最后一个&*/
-#ifdef API_PROVIDER_DEBUG
-    cout << Str << endl;
-#endif
     return Str;
 }
 
