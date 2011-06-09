@@ -4,6 +4,7 @@
 
 using namespace std;
 
-SinaApiProvider::SinaApiProvider(void)
+SinaApiProvider::SinaApiProvider(OauthHelper *helper)
 {
+    this->oauth = helper;
 }

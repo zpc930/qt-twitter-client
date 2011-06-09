@@ -17,7 +17,7 @@ class SinaApiProvider : public  MiniBlogProvider
 private:
     list<Status> __getFriendsTimeline(int feature_code, long long since_id, long long max_id, int count, int page, bool base_app, int feature);
 public:
-    SinaApiProvider(void);
+    SinaApiProvider(OauthHelper * helper);
     /*Statuses*/
     list<Status> getFriendsTimeline(void); /*override*/
     list<Status> getFriendsTimeline(int count);
