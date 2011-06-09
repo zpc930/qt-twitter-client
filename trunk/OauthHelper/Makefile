@@ -1,6 +1,6 @@
 #############################################################################
 #
-# Makefile for building: libSinaApiProvider.so
+# Makefile for building: libOauthHelper.so
 #
 #############################################################################
 
@@ -10,21 +10,14 @@ LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
 INCLUDES     := -I../include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
-LDFLAGS      := -shared -Wl -L../OauthHelper
-LIBS         := -lOauthHelper
+LDFLAGS      := -shared
+LIBS         := -loauth
 LDFLAGS      := $(LDFLAGS) $(LIBS)
-TARGET        = libSinaApiProvider.so
+TARGET        = libOauthHelper.so
 
 ##
 
-OBJECTS       = ./SinaApi.o \
-		./SinaApiProvider.o \
-		./SinaParam.o \
-		./parameter/count.o \
-		./parameter/source.o \
-		./parameter/page.o \
-		./api/Statuses/friends_timeline.o \
-		./api/Users/Show.o
+OBJECTS       = ./OauthHelper.o \
 
 all: $(TARGET)
 

@@ -1,6 +1,6 @@
 #############################################################################
 #
-# Makefile for building: libSinaApiProvider.so
+# Makefile for building: TestCase :oauthtest
 #
 #############################################################################
 
@@ -8,23 +8,16 @@
 CXX           = g++
 LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
-INCLUDES     := -I../include
+INCLUDES     := -I../../include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
-LDFLAGS      := -shared -Wl -L../OauthHelper
-LIBS         := -lOauthHelper
+LDFLAGS      := -Wl -L../../OauthHelper -L../../Sina
+LIBS         := -loauth -lOauthHelper -lSinaApiProvider
 LDFLAGS      := $(LDFLAGS) $(LIBS)
-TARGET        = libSinaApiProvider.so
+TARGET        = oauthtest
 
 ##
 
-OBJECTS       = ./SinaApi.o \
-		./SinaApiProvider.o \
-		./SinaParam.o \
-		./parameter/count.o \
-		./parameter/source.o \
-		./parameter/page.o \
-		./api/Statuses/friends_timeline.o \
-		./api/Users/Show.o
+OBJECTS       = ./OauthTest.o \
 
 all: $(TARGET)
 

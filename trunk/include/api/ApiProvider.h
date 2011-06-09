@@ -5,11 +5,7 @@ using namespace std;
 
 #include <list>
 #include <api/ApiGlobal.h>
-
-class ApiProvider {
-public:
-    ApiProvider();
-};
+#include <oauth/OauthHelper.h>
 
 /*tmp*/
 class Status
@@ -36,6 +32,7 @@ public:
 class MiniBlogProvider
 {
 protected:
+    class OauthHelper * oauth;
 public:
     /*Statuses*/
     virtual list<Status> getFriendsTimeline(void) = 0;

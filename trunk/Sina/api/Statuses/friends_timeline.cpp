@@ -1,6 +1,7 @@
 #include <api/sina/SinaApiProvider.h>
 #include <api/sina/SinaApi.h>
 #include <api/sina/SinaParam.h>
+#include <iostream>
 
 #define FAMILY_NAME "statuses"
 
@@ -15,7 +16,7 @@ list<Status> SinaApiProvider::__getFriendsTimeline(int feature_code, long long s
     class SinaParamServer * SPServer;
     int required = 0;
     int all = 0;
-    string urlquery;
+    string urlquery, result;
     int id;
     list<Status> statuses;
 
@@ -54,6 +55,10 @@ list<Status> SinaApiProvider::__getFriendsTimeline(int feature_code, long long s
     }
     urlquery = api->toString(SPServer);
     /*to-be-continue*/
+    this->oauth->Request(urlquery, &result);
+#if API_PROVIDER_DEBUG
+    cout << "result :" << result <<endl;
+#endif
     statuses.clear();
     return statuses;
 }
