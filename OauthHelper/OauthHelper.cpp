@@ -7,6 +7,9 @@ extern "C"
 }
 #include <oauth/OauthHelper.h>
 #include <iostream>
+
+string http_method_string[] = {"GET", "POST"};
+
 OauthHelper::OauthHelper(string ServerUrl, string RequestTokenUrl, string AuthUrl, string AccessTokenUrl, string ConsumerKey, string ConsumerSecret)
 {
     this->ServerUrl = ServerUrl;
@@ -147,17 +150,17 @@ int OauthHelper::ExportLoginData(string *AccessToken, string *AccessSecret, stri
     return OK;
 }
 
-int OauthHelper::Request(string RequestUrl, string *result)
+int OauthHelper::Request(string RequestUrl, int httpMethod, string *result)
 {
     int ret = OK;
     char * request_url, * reply;
     string urlString;
 
-    if(OAUTH_ACCESSED != this->LoginStatus)
+    if(OAUTH_ACCESSED != this->LoginStatus  || httpMethod >= HTTP_METHOD_MAX)
         return FAIL;
 
     urlString = this->ServerUrl + RequestUrl + "?oauth_verifier=" + this->Verifier;
-    request_url = oauth_sign_url2(urlString.c_str(), NULL, (OAuthMethod)this->OauthMethod, NULL, this->C_Key.c_str() , this->C_Secret.c_str(), this->r_key.c_str(), this->r_Secret.c_str());
+    request_url = oauth_sign_url2(urlString.c_str(), NULL, (OAuthMethod)this->OauthMethod, http_method_string[httpMethod].c_str(), this->C_Key.c_str() , this->C_Secret.c_str(), this->r_key.c_str(), this->r_Secret.c_str());
 #if OAUTH_DEBUG
     cout << "Request URL : " << request_url << endl;
 #endif
@@ -176,17 +179,17 @@ int OauthHelper::Request(string RequestUrl, string *result)
     return ret;
 }
 
-int OauthHelper::Request(string RequestUrl, Response* response)
+int OauthHelper::Request(string RequestUrl, int httpMethod, Response* response)
 {
     int ret = OK;
     char * request_url, * reply;
     string urlString;
 
-    if(OAUTH_ACCESSED != this->LoginStatus)
+    if(OAUTH_ACCESSED != this->LoginStatus || httpMethod >= HTTP_METHOD_MAX)
         return FAIL;
 
     urlString = this->ServerUrl + RequestUrl + "?oauth_verifier=" + this->Verifier;
-    request_url = oauth_sign_url2(urlString.c_str(), NULL, (OAuthMethod)this->OauthMethod, NULL, this->C_Key.c_str() , this->C_Secret.c_str(), this->r_key.c_str(), this->r_Secret.c_str());
+    request_url = oauth_sign_url2(urlString.c_str(), NULL, (OAuthMethod)this->OauthMethod, http_method_string[httpMethod].c_str(), this->C_Key.c_str() , this->C_Secret.c_str(), this->r_key.c_str(), this->r_Secret.c_str());
 #if OAUTH_DEBUG
     cout << "Request URL : " << request_url << endl;
 #endif
