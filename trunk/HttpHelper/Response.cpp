@@ -6,7 +6,7 @@
 #include <QtXml/QDomDocument>
 #include <cstdlib>
 #include <cstring>
-#include "Response.h"
+#include <http/Response.h>
 
 /*
  * 默认参数构造函数

@@ -175,3 +175,32 @@ int OauthHelper::Request(string RequestUrl, string *result)
     if(reply) free(reply);
     return ret;
 }
+
+int OauthHelper::Request(string RequestUrl, Response* response)
+{
+    int ret = OK;
+    char * request_url, * reply;
+    string urlString;
+
+    if(OAUTH_ACCESSED != this->LoginStatus)
+        return FAIL;
+
+    urlString = this->ServerUrl + RequestUrl + "?oauth_verifier=" + this->Verifier;
+    request_url = oauth_sign_url2(urlString.c_str(), NULL, (OAuthMethod)this->OauthMethod, NULL, this->C_Key.c_str() , this->C_Secret.c_str(), this->r_key.c_str(), this->r_Secret.c_str());
+#if OAUTH_DEBUG
+    cout << "Request URL : " << request_url << endl;
+#endif
+    reply = oauth_http_get(request_url,NULL);
+    if (!reply)
+            ret = FAIL;
+    else
+    {
+#if OAUTH_DEBUG
+        cout << "HTTP-reply:" << reply << endl;
+#endif
+        response->setResponseAsString(reply);
+    }
+    if(request_url) free(request_url);
+    if(reply) free(reply);
+    return ret;
+}

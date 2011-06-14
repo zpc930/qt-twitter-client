@@ -10,22 +10,14 @@ LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
 INCLUDES     := -I../include -I/usr/lib/qt4/include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
-LDFLAGS      := -shared -Wl -L../OauthHelper -L/usr/lib/qt4/lib
-LIBS         := -lOauthHelper -lQtXml -lQtCore -lQtNetwork
+LDFLAGS      := -shared -Wl -L/usr/lib/qt4/lib
+LIBS         := -lQtXml -lQtCore
 LDFLAGS      := $(LDFLAGS) $(LIBS)
-TARGET        = libSinaApiProvider.so
+TARGET        = libApiProvider.so
 
 ##
 
-OBJECTS       = ./SinaApi.o \
-		./SinaApiProvider.o \
-		./SinaParam.o \
-		./parameter/count.o \
-		./parameter/source.o \
-		./parameter/page.o \
-		./api/Statuses/friends_timeline.o \
-        ./api/Statuses/SinaStatus.o \
-		./api/Users/Show.o
+OBJECTS       = ./Status.o \
 
 all: $(TARGET)
 

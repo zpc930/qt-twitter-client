@@ -6,18 +6,9 @@ using namespace std;
 #include <list>
 #include <api/ApiGlobal.h>
 #include <oauth/OauthHelper.h>
+#include <api/Status.h>
 
 /*tmp*/
-class Status
-{
-private:
-    int Id;
-    char text[256];
-public:
-    int getId();
-    char * getText();
-};
-
 class User
 {
 private:
@@ -35,7 +26,8 @@ protected:
     class OauthHelper * oauth;
 public:
     /*Statuses*/
-    virtual list<Status> getFriendsTimeline(void) = 0;
+    virtual list<Status*> getFriendsTimeline(void) = 0;
+    //virtual list<Status*> updateStatus(Status& status) = 0;
 
     /*Users*/
     virtual User getUser(int id) = 0;

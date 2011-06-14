@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <QtCore/QList>
-#include "PostParameter.h"
+#include <http/PostParameter.h>
 #define AUTH_INFO_LEN 256
 
 class BasicAuthorization

@@ -6,8 +6,8 @@
 
 #include <iostream>
 #include <QtCore/QList>
-#include "PostParameter.h"
-#include "BasicAuthorization.h"
+#include <http/PostParameter.h>
+#include <http/BasicAuthorization.h>
 
 /*
  * Base64编码映射表

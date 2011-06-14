@@ -5,7 +5,7 @@
 #include <iostream>
 #include <QtCore/QList>
 #include <string>
-#include "PostParameter.h"
+#include <http/PostParameter.h>
 using namespace std;
 
 /*

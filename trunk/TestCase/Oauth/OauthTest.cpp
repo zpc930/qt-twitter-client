@@ -36,6 +36,12 @@ int main(int argc, char ** argv)
     ret = oauth->LoginStep2(pin);
     cout << "LoginStep 2 result:" << ret << endl;
 
-    sina->getFriendsTimeline();
+    list<Status*> lsStatus = sina->getFriendsTimeline();
+    /*for (int i = 0; i < lsStatus.size(); ++i) {
+        cout<<lsStatus[i]->getId()<<endl;
+    }*/
+    for (list<Status*>::iterator s = lsStatus.begin(); s != lsStatus.end(); s++) {
+        cout<<(*s)->getId()<<"\t"<<(*s)->getText()<<endl;
+    }
     return ret;
 }
