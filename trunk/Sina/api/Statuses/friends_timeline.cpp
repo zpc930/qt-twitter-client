@@ -28,7 +28,7 @@ list<Status*> SinaApiProvider::__getFriendsTimeline(int feature_code, long long 
           SINA_PARAM_FEATURE_B | SINA_PARAM_PAGE_B |
           SINA_PARAM_BASE_APP_B ;
 
-    api = new SinaApi(FAMILY_NAME, "friends_timeline",required, all);
+    api = new SinaApi(FAMILY_NAME, "friends_timeline", HTTP_METHOD_GET, required, all);
 
     SPServer = new SinaParamServer();
 
@@ -57,7 +57,7 @@ list<Status*> SinaApiProvider::__getFriendsTimeline(int feature_code, long long 
     }
     urlquery = api->toString(SPServer);
     /*to-be-continue*/
-    this->oauth->Request(urlquery, &response);
+    this->oauth->Request(urlquery, HTTP_METHOD_GET, &response);
     //this->oauth->Request(urlquery, &result);
 #if API_PROVIDER_DEBUG
     cout << "result :" <<response.responseAsDocument()->toString().toStdString()<<endl;

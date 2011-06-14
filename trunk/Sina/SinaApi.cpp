@@ -4,10 +4,11 @@
 #include <api/sina/SinaParam.h>
 #include <api/sina/SinaApiProvider.h>
 
-SinaApi::SinaApi(string family, string name, int required_param, int all_param)
+SinaApi::SinaApi(string family, string name, int http_method, int required_param, int all_param)
 {
     this->family = family;
     this->name = name;
+    this->http_method = http_method;
     this->needed_param = this->required_param = required_param;
     this->all_param = all_param;
     this->query_string = "?";

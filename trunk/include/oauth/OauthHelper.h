@@ -11,6 +11,13 @@ enum OAUTH_STATUS
     OAUTH_ACCESSED,
 };
 
+enum HTTP_METHOD
+{
+    HTTP_METHOD_GET,
+    HTTP_METHOD_POST,
+    HTTP_METHOD_MAX,
+};
+
 #define OAUTH_DEBUG 0
 
 #define OK 0
@@ -39,14 +46,15 @@ private:
     int LoginStatus;
     /*default*/
     int OauthMethod;
+    int HttpMethod;
 public:
     OauthHelper(string ServerUrl, string RequestTokenUrl, string AuthUrl, string AccessTokenUrl, string ConsumerKey, string ConsumerSecret);
     int LoginStep1(string * url);
     int LoginStep2(string pin);
     void RevertLoginStatus(string AccessToken, string AccessSecret, string Verifier, string UserId);
     int ExportLoginData(string * AccessToken, string * AccessSecret, string * Verifier, string * UserId);
-    int Request(string RequestUrl, string * result);
-    int Request(string RequestUrl, Response* response);
+    int Request(string RequestUrl, int httpMethod, string * result);
+    int Request(string RequestUrl, int httpMethod, Response* response);
 };
 
 #endif //OAUTHHELPER_H
