@@ -1,7 +1,7 @@
-#include <HttpClient.h>
-#include <Response.h>
-#include <PostParameter.h>
-#include <BasicAuthorization.h>
+#include <http/HttpClient.h>
+#include <http/Response.h>
+#include <http/PostParameter.h>
+#include <http/BasicAuthorization.h>
 #include <QtCore>
 #include <QtCore/QList>
 #include <iostream>

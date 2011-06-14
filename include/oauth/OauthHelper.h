@@ -2,6 +2,7 @@
 #define OAUTHHELPER_H
 
 #include <string>
+#include <http/Response.h>
 
 enum OAUTH_STATUS
 {
@@ -45,6 +46,7 @@ public:
     void RevertLoginStatus(string AccessToken, string AccessSecret, string Verifier, string UserId);
     int ExportLoginData(string * AccessToken, string * AccessSecret, string * Verifier, string * UserId);
     int Request(string RequestUrl, string * result);
+    int Request(string RequestUrl, Response* response);
 };
 
 #endif //OAUTHHELPER_H

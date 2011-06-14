@@ -8,7 +8,7 @@
 CXX           = g++
 LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
-INCLUDES     := -I../include
+INCLUDES     := -I../include -I/usr/lib/qt4/include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
 LDFLAGS      := -shared
 LIBS         := -loauth

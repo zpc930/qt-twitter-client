@@ -10,8 +10,8 @@
 #include <QtNetwork/QHttpResponseHeader>
 #include <QtNetwork/QHttpRequestHeader>
 #include <QtCore/QEventLoop>
-#include "Response.h"
-#include "PostParameter.h"
+#include <http/Response.h>
+#include <http/PostParameter.h>
 
 #define HOST_NAME_LEN 256
 #define HTTP_METHOD_GET "GET"

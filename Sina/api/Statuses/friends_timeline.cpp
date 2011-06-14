@@ -10,15 +10,17 @@
  * 必须参数：source
  * 可选参数：since_id, max_id, count, page, base_app, feature
  */
-list<Status> SinaApiProvider::__getFriendsTimeline(int feature_code, long long since_id, long long max_id, int count, int page, bool base_app, int feature)
+list<Status*> SinaApiProvider::__getFriendsTimeline(int feature_code, long long since_id, long long max_id, int count, int page, bool base_app, int feature)
 {
     class SinaApi * api;
     class SinaParamServer * SPServer;
     int required = 0;
     int all = 0;
     string urlquery, result;
+    Response response;
     int id;
-    list<Status> statuses;
+    list<Status*> statuses;
+    SinaStatus status;
 
     required = SINA_PARAM_SOURCE_B;
     all = SINA_PARAM_SOURCE_B | SINA_PARAM_SINCE_ID_B |
@@ -55,27 +57,29 @@ list<Status> SinaApiProvider::__getFriendsTimeline(int feature_code, long long s
     }
     urlquery = api->toString(SPServer);
     /*to-be-continue*/
-    this->oauth->Request(urlquery, &result);
+    this->oauth->Request(urlquery, &response);
+    //this->oauth->Request(urlquery, &result);
 #if API_PROVIDER_DEBUG
-    cout << "result :" << result <<endl;
+    cout << "result :" <<response.responseAsDocument()->toString().toStdString()<<endl;
 #endif
     statuses.clear();
+    status.loadListFromXml(*response.responseAsDocument(), statuses);
     return statuses;
 }
 
-list<Status> SinaApiProvider::getFriendsTimeline(void)
+list<Status*> SinaApiProvider::getFriendsTimeline(void)
 {
     int feature = 0;
     return __getFriendsTimeline(feature, 0,0,0,0,0,0);
 }
 
-list<Status> SinaApiProvider::getFriendsTimeline(int count)
+list<Status*> SinaApiProvider::getFriendsTimeline(int count)
 {
     int feature = SINA_PARAM_COUNT_B;
     return __getFriendsTimeline(feature, 0, 0, count, 0, 0, 0);
 }
 
-list<Status> SinaApiProvider::getFriendsTimeline(int count, int page)
+list<Status*> SinaApiProvider::getFriendsTimeline(int count, int page)
 {
     int feature = SINA_PARAM_COUNT_B | SINA_PARAM_PAGE_B;
     return __getFriendsTimeline(feature, 0, 0, count, page, 0, 0);
