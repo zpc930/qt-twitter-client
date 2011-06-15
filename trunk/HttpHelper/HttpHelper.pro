@@ -9,4 +9,4 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-SOURCES += HttpClient.cpp PostParameter.cpp Response.cpp BasicAuthorization.cpp
+SOURCES += PostParameter.cpp Response.cpp BasicAuthorization.cpp

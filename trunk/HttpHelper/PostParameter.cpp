@@ -162,18 +162,14 @@ char* PostParameter::generatePostParameter(QList<PostParameter*> &paras)
     if (count == 0) {
         return content;
     }
-    cout<<"before for:"<<POST_CONTENT_LEN<<"count:"<<count<<endl;
     for (int i = 0; i < count; ++i) {
-        cout<<"len:"<<len<<"i:"<<i<<endl;
         if (i != 0) {
             len += snprintf(content + len, POST_CONTENT_LEN - len, "&%s=%s", paras[i]->getName(), paras[i]->getValue());
         }
         else {
             len += snprintf(content + len, POST_CONTENT_LEN - len, "%s=%s", paras[i]->getName(), paras[i]->getValue());
         }
-        cout<<"content:"<<content<<endl;
     }
-    cout<<"after for"<<endl;
     return content;
 }
 
