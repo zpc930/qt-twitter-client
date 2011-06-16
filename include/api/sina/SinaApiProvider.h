@@ -23,6 +23,8 @@ public:
     list<Status*> getFriendsTimeline(void); /*override*/
     list<Status*> getFriendsTimeline(int count);
     list<Status*> getFriendsTimeline(int count,int page);
+
+    int update(string text);
     
     /* publish a status */
     //virtual list<Status*> updateStatus(Status& status);
