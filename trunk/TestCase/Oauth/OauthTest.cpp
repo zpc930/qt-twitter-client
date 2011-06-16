@@ -43,5 +43,7 @@ int main(int argc, char ** argv)
     for (list<Status*>::iterator s = lsStatus.begin(); s != lsStatus.end(); s++) {
         cout<<(*s)->getId()<<"\t"<<(*s)->getText()<<endl;
     }
+
+    ret = sina->update("转码转码&&&");
     return ret;
 }

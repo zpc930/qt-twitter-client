@@ -184,16 +184,26 @@ int OauthHelper::Request(string RequestUrl, int httpMethod, Response* response)
     int ret = OK;
     char * request_url, * reply;
     string urlString;
+    char ** postArg = 0;
 
     if(OAUTH_ACCESSED != this->LoginStatus || httpMethod >= HTTP_METHOD_MAX)
         return FAIL;
 
+    if(HTTP_METHOD_POST == httpMethod)
+    {
+        postArg = (char **)malloc(sizeof(char *));
+        *postArg = 0;
+    }
+
     urlString = this->ServerUrl + RequestUrl + "?oauth_verifier=" + this->Verifier;
-    request_url = oauth_sign_url2(urlString.c_str(), NULL, (OAuthMethod)this->OauthMethod, http_method_string[httpMethod].c_str(), this->C_Key.c_str() , this->C_Secret.c_str(), this->r_key.c_str(), this->r_Secret.c_str());
+    request_url = oauth_sign_url2(urlString.c_str(), postArg, (OAuthMethod)this->OauthMethod, NULL, this->C_Key.c_str() , this->C_Secret.c_str(), this->r_key.c_str(), this->r_Secret.c_str());
 #if OAUTH_DEBUG
     cout << "Request URL : " << request_url << endl;
 #endif
-    reply = oauth_http_get(request_url,NULL);
+    if(HTTP_METHOD_POST == httpMethod)
+        reply = oauth_http_post(request_url, *postArg);
+    else
+        reply = oauth_http_get(request_url,NULL);
     if (!reply)
             ret = FAIL;
     else
@@ -205,5 +215,10 @@ int OauthHelper::Request(string RequestUrl, int httpMethod, Response* response)
     }
     if(request_url) free(request_url);
     if(reply) free(reply);
+    if(postArg)
+    {
+        if(*postArg) free(*postArg);
+        free(postArg);
+    }
     return ret;
 }
