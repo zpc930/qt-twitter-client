@@ -1,6 +1,6 @@
 #include <factory/ManagerFactory.h>
 
-ManagerFactory* ManagerFactory::instance = new ManagerFactory();
+ManagerFactory* ManagerFactory::instance = NULL;
 
 /* constructors */
 ManagerFactory::ManagerFactory()
