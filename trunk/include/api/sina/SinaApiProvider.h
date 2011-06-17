@@ -28,6 +28,7 @@ public:
 
     /* Comments */
     list<Comment*> getCommentByStatus(QString statusId, int count = 20, int page = 1);
+    int updateComment(Comment& comment);
     
     /*Users*/
     User getUser(int id);
