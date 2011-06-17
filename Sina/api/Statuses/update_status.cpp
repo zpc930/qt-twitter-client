@@ -6,6 +6,8 @@
 #include <api/sina/SinaApi.h>
 
 #define FAMILY_NAME "statuses"
+#define PARA_NAME_STATUS "status"
+#define PARA_NAME_REPLY_ID "in_reply_to_status_id"
 
 int SinaApiProvider::updateStatus(Status& status)
 {
@@ -16,11 +18,11 @@ int SinaApiProvider::updateStatus(Status& status)
     Response response;
     PostParameter para;
     // set status text parameter
-    paras.append(new PostParameter("status", status.getText()));
+    paras.append(new PostParameter(PARA_NAME_STATUS, status.getText()));
 
     // set status reply parameter
     if (strcmp(status.getInReplyToStatusId(), "")) {
-        paras.append(new PostParameter("in_reply_to_status_id", status.getInReplyToStatusId()));
+        paras.append(new PostParameter(PARA_NAME_REPLY_ID, status.getInReplyToStatusId()));
     }
     api = new SinaApi(FAMILY_NAME, "update", HTTP_METHOD_POST);
     queryUrl = api->toString(paras);

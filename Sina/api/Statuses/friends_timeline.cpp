@@ -63,7 +63,9 @@ list<Status*> SinaApiProvider::__getFriendsTimeline(int feature_code, long long 
     cout << "result :" <<response.responseAsDocument()->toString().toStdString()<<endl;
 #endif
     statuses.clear();
-    status.loadListFromXml(*response.responseAsDocument(), statuses);
+    if (response.responseAsDocument()->elementsByTagName(NODE_STATUS_ROOT).count() != 0) {
+        status.loadListFromXml(*response.responseAsDocument(), statuses);
+    }
     return statuses;
 }
 

@@ -26,6 +26,8 @@ OBJECTS       = ./SinaApi.o \
 		./api/Statuses/friends_timeline.o \
         ./api/Statuses/update_status.o \
         ./api/Statuses/SinaStatus.o \
+        ./api/Statuses/comments.o \
+        ./api/Comments/SinaComment.o \
 		./api/Users/Show.o
 
 all: $(TARGET)

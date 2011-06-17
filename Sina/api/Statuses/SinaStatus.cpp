@@ -60,7 +60,7 @@ void SinaStatus::loadFromXml(QDomNode node)
 
 void SinaStatus::loadListFromXml(QDomDocument docXml, list<Status*>& lsStatus)
 {
-    QDomNodeList lsNode = docXml.elementsByTagName("status");
+    QDomNodeList lsNode = docXml.elementsByTagName(NODE_STATUS_ROOT);
     for (int i = 0; i < lsNode.length(); ++i) {
         QDomNode node = lsNode.at(i);
         SinaStatus* status = new SinaStatus();
