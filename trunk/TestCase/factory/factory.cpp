@@ -22,15 +22,15 @@ int main(int argc, char ** argv)
     class OauthHelper * oauth;
     class MiniBlogProvider * sina;
 
-    //sina = ManagerFactory::getInstance()->getProvider(PROVIDER_SINA);
-    oauth = new OauthHelper(
+    sina = ManagerFactory::getInstance()->getProvider(PROVIDER_SINA);
+    /*oauth = new OauthHelper(
             "http://api.t.sina.com.cn",
             "/oauth/request_token",
             "/oauth/authorize",
             "/oauth/access_token",
             "3270683373", "74eeee59407de92f1e6394157f090a36");
 
-    sina = new SinaApiProvider(oauth);
+    sina = new SinaApiProvider(oauth);*/
     ret = oauth->LoginStep1(&url);
     cout << "LoginStep 1 result:" << ret << "\nUrl:" << url << endl;
     cout << "Please Enter Pin code :";
