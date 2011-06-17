@@ -1,5 +1,5 @@
 #!/bin/sh
-OBJ_DIRS=(HttpHelper OauthHelper Sina api)
+OBJ_DIRS=(HttpHelper OauthHelper Sina api ManagerFactory)
 if [ $# -eq 0 ]
 then
     for dir in ${OBJ_DIRS[@]}
