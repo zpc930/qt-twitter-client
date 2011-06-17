@@ -18,6 +18,7 @@ TARGET        = libApiProvider.so
 ##
 
 OBJECTS       = ./Status.o \
+                ./Comment.o
 
 all: $(TARGET)
 
@@ -25,7 +26,6 @@ all: $(TARGET)
 	$(CXX) -c $(CXXFLAGS) -o "$@" "$<"
 
 $(TARGET):  $(OBJECTS)
-	rm -rf $(TARGET)
 	$(LINK) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
 clean:
