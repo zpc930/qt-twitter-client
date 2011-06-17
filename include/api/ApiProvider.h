@@ -36,6 +36,10 @@ public:
 
     /*Users*/
     virtual User getUser(int id) = 0;
+
+    /*oauth*/
+    int OauthStep1(string * url);
+    int OauthStep2(string pin);
 };
 
 #endif // APIPROVIDER_H

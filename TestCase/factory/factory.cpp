@@ -19,10 +19,9 @@ int main(int argc, char ** argv)
     int ret = 0;
     string url;
     string pin;
-    class OauthHelper * oauth;
-    class MiniBlogProvider * sina;
+    class MiniBlogProvider * provider;
 
-    sina = ManagerFactory::getInstance()->getProvider(PROVIDER_SINA);
+    provider = ManagerFactory::getInstance()->getProvider(PROVIDER_SINA);
     /*oauth = new OauthHelper(
             "http://api.t.sina.com.cn",
             "/oauth/request_token",
@@ -31,14 +30,14 @@ int main(int argc, char ** argv)
             "3270683373", "74eeee59407de92f1e6394157f090a36");
 
     sina = new SinaApiProvider(oauth);*/
-    ret = oauth->LoginStep1(&url);
+    ret = provider->OauthStep1(&url);
     cout << "LoginStep 1 result:" << ret << "\nUrl:" << url << endl;
     cout << "Please Enter Pin code :";
     getline(cin, pin);
-    ret = oauth->LoginStep2(pin);
+    ret = provider->OauthStep2(pin);
     cout << "LoginStep 2 result:" << ret << endl;
 
-    list<Status*> lsStatus = sina->getFriendsTimeline();
+    list<Status*> lsStatus = provider->getFriendsTimeline();
     /*for (int i = 0; i < lsStatus.size(); ++i) {
       cout<<lsStatus[i]->getId()<<endl;
       }*/

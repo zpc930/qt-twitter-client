@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 OBJ_DIRS=(HttpHelper OauthHelper Sina api ManagerFactory)
 if [ $# -eq 0 ]
 then

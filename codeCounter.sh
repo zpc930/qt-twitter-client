@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 DIRS={Sina,include,HttpHelper,api,ManagerFactory,UI,OauthHelper}
 find ./{Sina,include,HttpHelper,api,ManagerFactory,UI,OauthHelper} -regex '.*\.\(h\|cpp\)' -exec wc -l {} \;
 sum=0
