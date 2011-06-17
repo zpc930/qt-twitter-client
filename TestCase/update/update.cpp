@@ -36,19 +36,23 @@ int main(int argc, char ** argv)
     ret = oauth->LoginStep2(pin);
     cout << "LoginStep 2 result:" << ret << endl;
 
-    list<Status*> lsStatus = sina->getFriendsTimeline();
+    //list<Status*> lsStatus = sina->getFriendsTimeline();
     /*for (int i = 0; i < lsStatus.size(); ++i) {
         cout<<lsStatus[i]->getId()<<endl;
     }*/
-    for (list<Status*>::iterator s = lsStatus.begin(); s != lsStatus.end(); s++) {
-        cout<<(*s)->getId()<<"\t"<<(*s)->getText()<<endl;
-    }
+    //for (list<Status*>::iterator s = lsStatus.begin(); s != lsStatus.end(); s++) {
+    //    cout<<(*s)->getId()<<"\t"<<(*s)->getText()<<endl;
+    //}
 
     char* text = "发布微博测试！！";
-    if (argc == 2) {
-        text = argv[1];
-    }
     SinaStatus status(text);
+    if (argc == 2) {
+        status.setText(argv[1]);
+    }
+    else if (argc == 3) {
+        status.setText(argv[1]);
+        status.setInReplyInfo(argv[2], 0, "");
+    }
     ret = sina->updateStatus(status);
     cout<<"ret: "<<ret<<endl;
     return ret;
