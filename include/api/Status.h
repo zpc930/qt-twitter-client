@@ -62,10 +62,6 @@ public:
     /* constructors */
     Status();
     Status(char* text);
-
-    /* loaders */
-    virtual void loadFromXml(QDomNode node) = 0;
-    virtual void loadListFromXml(QDomDocument docXml, list<Status*>& lsStatus) = 0;
 };
 
 #endif

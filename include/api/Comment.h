@@ -20,28 +20,34 @@ private:
     QString id;
     QString text;
     QString replyStatusId;
+    QString replyCommentId;
+    int noMention;
+    int commentOri;
     int userId;
     void init();
 public:
     /* constructors */
     Comment();
     Comment(const QString id, const QString text, const QString statusId, const int userId);
+    Comment(const QString text, const QString statusId, const QString replyCommentId);
 
     /* getters */
     QString getId() const;
     QString getText() const;
     QString getReplyStatusId() const;
+    QString getReplyCommentId() const;
+    int getNoMention() const;
+    int getCommentOri() const;
     int getUserId() const;
 
     /* setters */
     void setId(const QString id);
     void setText(const QString text);
     void setReplyStatusId(const QString statusId);
+    void setReplyCommentId(const QString commentId);
+    void setNoMention(const int noMention);
+    void setCommentOri(const int commentOri);
     void setUserId(const int userId);
-
-    /* loaders */
-    virtual void loadFromXml(QDomNode node) = 0;
-    virtual void loadListFromXml(QDomDocument docXml, list<Comment*>& lsComment) = 0;
 };
 
 #endif //__COMMENT_H__

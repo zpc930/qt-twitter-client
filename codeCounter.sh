@@ -1,7 +1,8 @@
 #!/bin/sh
-find ./ -name "*.cpp" -exec wc -l {} \; #| awk 'BEGIN{total=0} {total+=$1} END{print $total}';
+DIRS={Sina,include,HttpHelper,api,ManagerFactory,UI,OauthHelper}
+find ./{Sina,include,HttpHelper,api,ManagerFactory,UI,OauthHelper} -regex '.*\.\(h\|cpp\)' -exec wc -l {} \;
 sum=0
-for count in `find ./ -name "*.cpp" -exec wc -l {} \; | awk '{print $1}'`
+for count in `find ./{Sina,include,HttpHelper,api,ManagerFactory,UI,OauthHelper} -regex '.*\.\(h\|cpp\)' -exec wc -l {} \; | awk '{print $1}'`
 do
     sum=$((sum+$count));
 done;
