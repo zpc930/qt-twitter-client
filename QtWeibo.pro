@@ -10,7 +10,7 @@ FORMS += \
     UI/mainwindow.ui
  
 RESOURCES += \
-    Resources.qrc
+    UI/Resources.qrc
 
 unix:release {
         DESTDIR = release/linux
