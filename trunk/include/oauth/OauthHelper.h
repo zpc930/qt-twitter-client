@@ -18,7 +18,7 @@ enum HTTP_METHOD
     HTTP_METHOD_MAX,
 };
 
-#define OAUTH_DEBUG 0
+#define OAUTH_DEBUG 1
 
 #define OK 0
 #define FAIL 1
