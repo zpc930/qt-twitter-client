@@ -34,7 +34,9 @@ public:
     void setValue(const char* value);
     void setValue(const int value);
     void setValue(const double value);
-    static char* generatePostParameter(QList<PostParameter*> &paras);
+    void releaseParas(QList<PostParameter*> paras);
+    void encodeUrl(char* paraVal);
+    char* generatePostParameter(QList<PostParameter*> &paras);
 };
 
 #endif

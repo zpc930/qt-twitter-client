@@ -148,9 +148,58 @@ void PostParameter::setValue(const double value)
 }
 
 /*
+ * 释放PostParameter参数列表
+ * paras  : 参数列表
+ */
+void PostParameter::releaseParas(QList<PostParameter*> paras)
+{
+    int count = paras.count();
+    if (count == 0) {
+        return ;
+    }
+    for (int i = 0; i < count; ++i) {
+        delete paras[i];
+    } 
+    paras.clear();
+}
+
+/*
+ * 对postParameter进行URL编码
+ * paraVal  : 要编码的参数
+ */
+void PostParameter::encodeUrl(char* paraVal)
+{
+    int len = strlen(paraVal);
+    string encoded;
+    for (int i = 0; i < len; ++i) {
+        switch(paraVal[i]) {
+            case '*':
+                encoded += "%2A";
+                break;
+            case '+':
+                encoded += "%2B";
+                break;
+            case '&':
+                encoded += "%26";
+                break;
+            case '?':
+                encoded += "%3F";
+                break;
+            case '=':
+                encoded += "%3D";
+                break;
+            default:
+                encoded += paraVal[i];
+                break;
+        }
+    }
+    strncpy(paraVal, encoded.c_str(), POST_VALUE_LEN);
+    paraVal[POST_VALUE_LEN] = '\0';
+}
+
+/*
  * 根据PostParameter列表生成post参数串
  * paras  : 参数列表
- * count  : 参数的个数
  * 返回参数的字符串形式
  */
 char* PostParameter::generatePostParameter(QList<PostParameter*> &paras)
@@ -163,6 +212,7 @@ char* PostParameter::generatePostParameter(QList<PostParameter*> &paras)
         return content;
     }
     for (int i = 0; i < count; ++i) {
+        encodeUrl(paras[i]->getValue());
         if (i != 0) {
             len += snprintf(content + len, POST_CONTENT_LEN - len, "&%s=%s", paras[i]->getName(), paras[i]->getValue());
         }

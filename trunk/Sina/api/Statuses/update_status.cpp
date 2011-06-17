@@ -14,6 +14,7 @@ int SinaApiProvider::updateStatus(Status& status)
     QList<PostParameter*> paras;
     string queryUrl;
     Response response;
+    PostParameter para;
     // set status text parameter
     paras.append(new PostParameter("status", status.getText()));
 
@@ -23,6 +24,9 @@ int SinaApiProvider::updateStatus(Status& status)
     }
     api = new SinaApi(FAMILY_NAME, "update", HTTP_METHOD_POST);
     queryUrl = api->toString(paras);
+#if API_PROVIDER_DEBUG
+    cout << "query url:" <<queryUrl<<endl;
+#endif
 
     this->oauth->Request(queryUrl, HTTP_METHOD_POST, &response);
 #if API_PROVIDER_DEBUG
@@ -33,5 +37,6 @@ int SinaApiProvider::updateStatus(Status& status)
     if (response.responseAsDocument()->elementsByTagName("status").count() == 0) {
         ret = -1;
     }
+    para.releaseParas(paras);
     return ret;
 }

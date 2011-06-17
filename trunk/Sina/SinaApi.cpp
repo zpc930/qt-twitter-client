@@ -36,7 +36,8 @@ string SinaApi::toString(class SinaParamServer * SPServer)
 string SinaApi::toString(QList<PostParameter*> paras)
 {
     string retValue;
-    char* paraStr = PostParameter::generatePostParameter(paras);
+    PostParameter para;
+    char* paraStr = para.generatePostParameter(paras);
     this->query_string += paraStr;
     retValue = "/" +this->family + "/" + this->name + ".xml" + this->query_string;
     delete[] paraStr;
