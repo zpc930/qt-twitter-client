@@ -27,7 +27,7 @@ public:
     int update(string text);
     
     /* publish a status */
-    //virtual list<Status*> updateStatus(Status& status);
+    int updateStatus(Status& status);
 
     /*Users*/
     User getUser(int id);

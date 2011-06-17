@@ -3,6 +3,7 @@
 
 #include <string>
 #include <api/ApiGlobal.h>
+#include <http/PostParameter.h>
 
 using namespace std;
 
@@ -21,6 +22,10 @@ public:
 
     SinaApi(string family, string name, int http_method, int feature_code, int all_param);
     string toString(class SinaParamServer * SPServer);
+
+    /* overload by lvjin, more simple */
+    SinaApi(string family, string name, int http_method);
+    string toString(QList<PostParameter*> paras);
 };
 
 #endif // SINAAPI_H

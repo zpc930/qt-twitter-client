@@ -14,6 +14,14 @@ SinaApi::SinaApi(string family, string name, int http_method, int required_param
     this->query_string = "?";
 }
 
+SinaApi::SinaApi(string family, string name, int http_method)
+{
+    this->family =family;
+    this->name = name;
+    this->http_method = http_method;
+    this->query_string = "?";
+}
+
 string SinaApi::toString(class SinaParamServer * SPServer)
 {
     string Str;
@@ -23,6 +31,16 @@ string SinaApi::toString(class SinaParamServer * SPServer)
     Str =  "/" +this->family + "/" + this->name + ".xml" + this->query_string;
     Str.erase(Str.end() - 1); /*删掉最后一个&*/
     return Str;
+}
+
+string SinaApi::toString(QList<PostParameter*> paras)
+{
+    string retValue;
+    char* paraStr = PostParameter::generatePostParameter(paras);
+    this->query_string += paraStr;
+    retValue = "/" +this->family + "/" + this->name + ".xml" + this->query_string;
+    delete[] paraStr;
+    return retValue;
 }
 
 void SinaApi::setUrlString(int param_id, string param_string)

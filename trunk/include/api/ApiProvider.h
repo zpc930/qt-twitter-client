@@ -27,7 +27,7 @@ protected:
 public:
     /*Statuses*/
     virtual list<Status*> getFriendsTimeline(void) = 0;
-    //virtual list<Status*> updateStatus(Status& status) = 0;
+    virtual int updateStatus(Status& status) = 0;
 
     /*Users*/
     virtual User getUser(int id) = 0;

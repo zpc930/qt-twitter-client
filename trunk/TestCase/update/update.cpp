@@ -44,6 +44,12 @@ int main(int argc, char ** argv)
         cout<<(*s)->getId()<<"\t"<<(*s)->getText()<<endl;
     }
 
-    //ret = sina->update("转码转码&&&");
+    char* text = "发布微博测试！！";
+    if (argc == 2) {
+        text = argv[1];
+    }
+    SinaStatus status(text);
+    ret = sina->updateStatus(status);
+    cout<<"ret: "<<ret<<endl;
     return ret;
 }

@@ -1,5 +1,14 @@
 #include <api/sina/SinaStatus.h>
 
+/* constructors */
+SinaStatus::SinaStatus()
+{
+}
+
+SinaStatus::SinaStatus(char* text):Status(text)
+{
+}
+
 /* loaders */
 void SinaStatus::loadFromXml(QDomNode node)
 {
