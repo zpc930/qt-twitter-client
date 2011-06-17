@@ -25,6 +25,8 @@
 class SinaStatus : public Status
 {
 public:
+    SinaStatus();
+    SinaStatus(char* text);
     void loadFromXml(QDomNode node);
     void loadListFromXml(QDomDocument docXml, list<Status*>& lsStatus);
 };

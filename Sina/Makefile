@@ -24,6 +24,7 @@ OBJECTS       = ./SinaApi.o \
 		./parameter/source.o \
 		./parameter/page.o \
 		./api/Statuses/friends_timeline.o \
+        ./api/Statuses/update_status.o \
         ./api/Statuses/SinaStatus.o \
 		./api/Users/Show.o
 
