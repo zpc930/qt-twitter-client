@@ -11,6 +11,7 @@
 #include <QtXml/QDomNodeList>
 #include <QtXml/QDomNode>
 #include <api/Status.h>
+#include <api/sina/SinaUser.h>
 #include <http/Response.h>
 
 #define NODE_STATUS_ROOT "status"
@@ -22,6 +23,7 @@
 #define NODE_NAME_REPLY_STSTUS_ID "in_reply_to_status_id"
 #define NODE_NAME_REPLY_USER_ID "in_reply_to_user_id"
 #define NODE_NAME_REPLY_SCREEN_NAME "in_reply_to_screen_name"
+#define NODE_NAME_USER "user"
 
 class SinaStatus : public Status
 {

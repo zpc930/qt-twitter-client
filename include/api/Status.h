@@ -9,12 +9,13 @@
 
 #include <iostream>
 #include <string.h>
-#include <http/Response.h>
-#include <api/ApiGlobal.h>
 #include <list>
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNodeList>
 #include <QtXml/QDomNode>
+#include <http/Response.h>
+#include <api/ApiGlobal.h>
+#include <api/User.h>
 
 #define STATUS_ID_LEN 32
 #define STATUS_TEXT_LEN 300
@@ -22,7 +23,7 @@
 #define STATUS_SCREEN_NAME_LEN 64
 
 using namespace std;
-
+class User;
 class Status
 {
 private:
@@ -39,6 +40,7 @@ private:
     char* thumbnail_pic;
     char* bmiddle_pic;
     char* original_pic;
+    User* user;
     void init();
 public:
     /* getters */
@@ -50,6 +52,7 @@ public:
     int getInReplyToUserId() const;
     const char* getInReplyToScreenName() const;
     int getIsFavourate() const;
+    User* getUser() const;
     
     /* setters */
     void setText(const char* text);
@@ -58,10 +61,13 @@ public:
     void setIsFavourate(const int isFavourate);
     void setIsTruncated(const int isTruncated);
     void setId(const char* id);
+    void setUser(User* user);
 
     /* constructors */
     Status();
     Status(char* text);
+
+    ~Status();
 };
 
 #endif

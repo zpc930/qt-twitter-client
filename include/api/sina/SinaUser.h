@@ -6,7 +6,7 @@
  */
 #ifndef _SINAUSER_H_
 #define _SINAUSER_H_
-#include <include/api/User.h>
+#include <api/User.h>
 #include <iostream>
 #include <string.h>
 #include <http/Response.h>
@@ -48,7 +48,6 @@ public:
 
 private:
 	Status & status;
-
 };
 
 #endif /* SINAUSER_H_ */

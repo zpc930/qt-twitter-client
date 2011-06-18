@@ -42,7 +42,7 @@ int main(int argc, char ** argv)
       cout<<lsStatus[i]->getId()<<endl;
       }*/
     for (list<Status*>::iterator s = lsStatus.begin(); s != lsStatus.end(); s++) {
-        cout<<(*s)->getId()<<"\t"<<(*s)->getText()<<endl;
+        cout<<(*s)->getUser()->getId().toStdString()<<"\t"<<(*s)->getId()<<"\t"<<(*s)->getText()<<endl;
     }
 
     return ret;

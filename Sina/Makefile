@@ -29,8 +29,8 @@ OBJECTS       = ./SinaApi.o \
         ./api/Statuses/comments.o \
         ./api/Comments/SinaComment.o \
         ./api/Comments/updateComment.o \
-		./api/Users/Show.o \
-		./api/Users/SinaUser.o
+        ./api/Users/SinaUser.o \
+		./api/Users/Show.o
 
 all: $(TARGET)
 
