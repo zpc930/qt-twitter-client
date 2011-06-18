@@ -8,18 +8,7 @@ using namespace std;
 #include <oauth/OauthHelper.h>
 #include <api/Status.h>
 #include <api/Comment.h>
-
-/*tmp*/
-class User
-{
-private:
-    int Id;
-    char name[16];
-
-public:
-    int getId();
-    char * getName();
-};
+#include <api/User.h>
 
 class MiniBlogProvider
 {
