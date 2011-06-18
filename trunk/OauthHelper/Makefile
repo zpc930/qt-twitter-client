@@ -4,11 +4,10 @@
 #
 #############################################################################
 
-
 CXX           = g++
 LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
-INCLUDES     := -I../include -I/usr/lib/qt4/include
+INCLUDES     := -I../include -I$(QTPATH)/include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
 LDFLAGS      := -shared
 LIBS         := -loauth

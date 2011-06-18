@@ -8,9 +8,9 @@
 CXX           = g++
 LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
-INCLUDES     := -I../include -I/usr/lib/qt4/include
+INCLUDES     := -I../include -I$(QTPATH)/include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
-LDFLAGS      := -shared -Wl -L../OauthHelper -L/usr/lib/qt4/lib
+LDFLAGS      := -shared -Wl -L../OauthHelper -L$(QTPATH)/lib
 LIBS         := -lOauthHelper -lQtXml -lQtCore -lQtNetwork
 LDFLAGS      := $(LDFLAGS) $(LIBS)
 TARGET        = libSinaApiProvider.so

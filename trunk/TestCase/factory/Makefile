@@ -8,9 +8,9 @@
 CXX           = g++
 LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
-INCLUDES     := -I../../include -I/usr/lib/qt4/include
+INCLUDES     := -I../../include -I$(QTPATH)/include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
-LDFLAGS      := -Wl -L/usr/local/lib -L/usr/lib/qt4/lib -L../../lib
+LDFLAGS      := -Wl -L/usr/local/lib -L$(QTPATH)/lib -L../../lib
 LIBS         := -loauth -lOauthHelper -lSinaApiProvider -lQtXml -lQtNetwork -lQtCore -lApiProvider -lhttphelper -lManagerFactory
 LDFLAGS      := $(LDFLAGS) $(LIBS)
 TARGET        = factory
