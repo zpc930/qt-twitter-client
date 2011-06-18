@@ -18,7 +18,8 @@ TARGET        = libApiProvider.so
 ##
 
 OBJECTS       = ./Status.o \
-                ./Comment.o
+                ./Comment.o \
+                ./User.o
 
 all: $(TARGET)
 
