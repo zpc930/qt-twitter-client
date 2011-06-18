@@ -8,6 +8,7 @@ Comment::Comment()
 
 Comment::Comment(const QString id, const QString text, const QString statusId, const int userId)
 {
+    this->init();
     this->setId(id);
     this->setText(text);
     this->setReplyStatusId(statusId);
@@ -22,6 +23,18 @@ Comment::Comment(const QString text,const QString statusId, const QString replyC
     this->setReplyCommentId(replyCommentId);
 }
 
+Comment::~Comment()
+{
+    if (this->user != NULL) {
+        delete this->user;
+        this->setUser(NULL);
+    }
+    if (this->status != NULL) {
+        delete this->status;
+        this->setStatus(NULL);
+    }
+}
+
 void Comment::init()
 {
     this->setId("");
@@ -30,6 +43,8 @@ void Comment::init()
     this->setUserId(0);
     this->setNoMention(0);
     this->setCommentOri(0);
+    this->setUser(NULL);
+    this->setStatus(NULL);
 }
 
 /* getters */
@@ -66,6 +81,16 @@ int Comment::getNoMention() const
 int Comment::getCommentOri() const
 {
     return this->commentOri;
+}
+
+User* Comment::getUser() const
+{
+    return this->user;
+}
+
+Status* Comment::getStatus() const
+{
+    return this->status;
 }
 
 /* setters */
@@ -112,5 +137,15 @@ void Comment::setCommentOri(const int commentOri)
     else {
         this->commentOri = 0;
     }
+}
+
+void Comment::setUser(User* user)
+{
+    this->user = user;
+}
+
+void Comment::setStatus(Status* status)
+{
+    this->status = status;
 }
 

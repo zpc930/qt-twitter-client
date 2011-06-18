@@ -1,9 +1,14 @@
 #!/bin/bash
 
-#prepare
+# prepare LD_LIBRARY_PATH
+if [ -z $OLD_LD_LIBRARY_PATH ]
+then 
+    export OLD_LD_LIBRARY_PATH=$LD_LIBRARY_PATH 
+fi
 
+export LD_LIBRARY_PATH=$OLD_LD_LIBRARY_PATH:`pwd`/lib
 
-
+# prepare QTPATH
 if [ -z $QTPATH ] 
 then 
 	echo   "Please use export QTPATH=xxx" 

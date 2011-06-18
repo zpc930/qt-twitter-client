@@ -27,13 +27,16 @@ void SinaComment::loadFromXml(QDomNode node)
         }
         else if (child.nodeName() == NODE_NAME_STATUS) {
             /* set repliy status id */
-            SinaStatus status;
-            status.loadFromXml(child);
-            this->setReplyStatusId(status.getId());
+            SinaStatus* status = new SinaStatus();
+            status->loadFromXml(child);
+            this->setReplyStatusId(status->getId());
+            this->setStatus(status);
         }
         else if (child.nodeName() == NODE_NAME_USER) {
             /* set comment user id  */
-            /* to add code here */
+            SinaUser* user = new SinaUser();
+            user->loadFromXml(child);
+            this->setUser(user);
         }
     }
 }

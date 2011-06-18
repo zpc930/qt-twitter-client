@@ -11,6 +11,7 @@
 #include <iostream>
 #include <QtXml/QDomDocument>
 #include <api/Status.h>
+#include <api/User.h>
 
 using namespace std;
 
@@ -23,6 +24,8 @@ private:
     QString replyCommentId;
     int noMention;
     int commentOri;
+    User* user;
+    Status* status;
     int userId;
     void init();
 public:
@@ -30,6 +33,8 @@ public:
     Comment();
     Comment(const QString id, const QString text, const QString statusId, const int userId);
     Comment(const QString text, const QString statusId, const QString replyCommentId);
+
+    ~Comment();
 
     /* getters */
     QString getId() const;
@@ -39,6 +44,8 @@ public:
     int getNoMention() const;
     int getCommentOri() const;
     int getUserId() const;
+    User* getUser() const;
+    Status* getStatus() const;
 
     /* setters */
     void setId(const QString id);
@@ -48,6 +55,8 @@ public:
     void setNoMention(const int noMention);
     void setCommentOri(const int commentOri);
     void setUserId(const int userId);
+    void setUser(User* user);
+    void setStatus(Status* status);
 };
 
 #endif //__COMMENT_H__

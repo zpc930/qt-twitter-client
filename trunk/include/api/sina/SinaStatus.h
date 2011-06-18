@@ -24,6 +24,7 @@
 #define NODE_NAME_REPLY_USER_ID "in_reply_to_user_id"
 #define NODE_NAME_REPLY_SCREEN_NAME "in_reply_to_screen_name"
 #define NODE_NAME_USER "user"
+#define NODE_NAME_RETWEETED "retweeted_status"
 
 class SinaStatus : public Status
 {
