@@ -8,6 +8,7 @@
 
 #include <QtCore/QList>
 #include <string>
+#include <stdio.h>
 #define POST_NAME_LEN  64
 #define POST_VALUE_LEN 1024
 #define POST_CONTENT_LEN 2048
