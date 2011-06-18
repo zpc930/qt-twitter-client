@@ -24,6 +24,25 @@
 
 using namespace std;
 class User;
+
+/*
+ * status类字段说明
+ * @id                  : 微博的id
+ * @text                : 微博的内容
+ * @source              : 发布微博的客户端应用号
+ * @isTruncated         : 微博是否被截断
+ * @isReplyToStatusId   : 微博转发的微博的id
+ * @isReplyToUserId     : 微博转发的微博的发布者id
+ * @isReplyToScreenName : 微博转发的微博的发布者屏显名称
+ * @isFavourate         : 微博是否被收藏
+ * @latitude            : 微博发布时的纬度(共享地理位置) 保留
+ * @longtitude          : 微博发布时的经度(共享地址位置) 保留
+ * @thumbnail_pic       : 小图片的url 保留
+ * @bmiddle_pic         : 中图片的url 保留
+ * @original_pic        : 原图片的url 保留
+ * @user                : 发布者信息
+ * @retweetedStatus     : 转发的微博的信息
+ */
 class Status
 {
 private:

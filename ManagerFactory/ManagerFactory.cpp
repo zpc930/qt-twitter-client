@@ -11,7 +11,7 @@ ManagerFactory::ManagerFactory()
                 "/oauth/request_token",
                 "/oauth/authorize",
                 "/oauth/access_token",
-                "3270683373", "74eeee59407de92f1e6394157f090a36"));
+                "1596803225", "7bc29cb2aa9c02958cae028d26f83902"));
 }
 
 /* Singleton */
