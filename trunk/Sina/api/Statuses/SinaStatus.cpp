@@ -55,6 +55,11 @@ void SinaStatus::loadFromXml(QDomNode node)
         else if(!strcmp(child.nodeName().toStdString().c_str(), NODE_NAME_REPLY_SCREEN_NAME)) {
             this->setInReplyInfo(rpy_status_id, rpy_usr_id, child.toElement().text().toStdString().c_str());
         }
+        else if(!strcmp(child.nodeName().toStdString().c_str(), NODE_NAME_USER)) {
+            SinaUser *user = new SinaUser();
+            user->loadFromXml(child);
+            this->setUser(user);
+        }
     }
 }
 

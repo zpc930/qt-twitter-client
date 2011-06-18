@@ -5,7 +5,6 @@
  *      Author: Eric
  */
 #include <api/sina/SinaUser.h>
-#include <qnamespace.h>
 #include <api/sina/SinaStatus.h>
 
 SinaUser::SinaUser():status(){
@@ -19,7 +18,7 @@ void SinaUser::loadFromXml(QDomNode node){
 	for (int i = 0; i < lsChildLength; ++i) {
 		QDomNode child = lsChild.at(i);
 		if(child.nodeName()==USER_NODE_NAME_ID){
-			setId(child.nodeValue());
+			setId(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_SCREEN_NAME){
 	    	this->setScreen_name(child.nodeValue());
 	    }else if(child.nodeName()==USER_NODE_NAME_NAME){

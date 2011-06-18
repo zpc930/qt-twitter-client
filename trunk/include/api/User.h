@@ -36,7 +36,7 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNodeList>
 #include <QtXml/QDomNode>
-#include <qdatetime.h>
+#include <QtCore/QDateTime>
 #include <api/Status.h>
 
 enum User_Gender{

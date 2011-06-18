@@ -41,6 +41,11 @@ const char* Status::getInReplyToScreenName() const
     return this->inReplyToScreenName;
 }
 
+User* Status::getUser() const
+{
+    return this->user;
+}
+
 /* setters */
 void Status::setText(const char* text)
 {
@@ -79,6 +84,12 @@ void Status::setId(const char* id)
     strncpy(this->id, id, STATUS_ID_LEN);
     this->id[STATUS_ID_LEN] = '\0';
 }
+
+void Status::setUser(User* user)
+{
+    this->user = user;
+}
+
 void Status::init()
 {
     this->latitude = 0;
@@ -87,6 +98,7 @@ void Status::init()
     this->original_pic = NULL;
     this->thumbnail_pic = NULL;
     this->setInReplyInfo("", 0, "");
+    this->setUser(NULL);
 }
 
 /* constructors */
@@ -100,3 +112,10 @@ Status::Status(char* text)
     this->setText(text);
 }
 
+Status::~Status()
+{
+    if (this->user != NULL) {
+        delete this->user;
+        this->setUser(NULL);
+    }
+}
