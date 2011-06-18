@@ -46,6 +46,11 @@ User* Status::getUser() const
     return this->user;
 }
 
+Status* Status::getRetweetedStatus() const
+{
+    return this->retweetedStatus;
+}
+
 /* setters */
 void Status::setText(const char* text)
 {
@@ -90,6 +95,11 @@ void Status::setUser(User* user)
     this->user = user;
 }
 
+void Status::setRetweetedStatus(Status* status)
+{
+    this->retweetedStatus = status;
+}
+
 void Status::init()
 {
     this->latitude = 0;
@@ -99,6 +109,7 @@ void Status::init()
     this->thumbnail_pic = NULL;
     this->setInReplyInfo("", 0, "");
     this->setUser(NULL);
+    this->setRetweetedStatus(NULL);
 }
 
 /* constructors */
@@ -118,4 +129,9 @@ Status::~Status()
         delete this->user;
         this->setUser(NULL);
     }
+    if (this->retweetedStatus != NULL) {
+        delete this->retweetedStatus;
+        this->setRetweetedStatus(NULL);
+    }
 }
+

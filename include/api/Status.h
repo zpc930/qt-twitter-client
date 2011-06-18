@@ -41,6 +41,7 @@ private:
     char* bmiddle_pic;
     char* original_pic;
     User* user;
+    Status* retweetedStatus;
     void init();
 public:
     /* getters */
@@ -53,6 +54,7 @@ public:
     const char* getInReplyToScreenName() const;
     int getIsFavourate() const;
     User* getUser() const;
+    Status* getRetweetedStatus() const;
     
     /* setters */
     void setText(const char* text);
@@ -62,6 +64,7 @@ public:
     void setIsTruncated(const int isTruncated);
     void setId(const char* id);
     void setUser(User* user);
+    void setRetweetedStatus(Status* status);
 
     /* constructors */
     Status();

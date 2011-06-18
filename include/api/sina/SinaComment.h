@@ -13,6 +13,8 @@
 #include <QtXml/QDomNodeList>
 #include <QtXml/QDomNode>
 #include <api/Comment.h>
+#include <api/sina/SinaStatus.h>
+#include <api/sina/SinaUser.h>
 
 #define NODE_COMMENT_ROOT "comment"
 #define NODE_NAME_ID "id"

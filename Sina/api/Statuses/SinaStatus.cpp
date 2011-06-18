@@ -60,6 +60,11 @@ void SinaStatus::loadFromXml(QDomNode node)
             user->loadFromXml(child);
             this->setUser(user);
         }
+        else if (!strcmp(child.nodeName().toStdString().c_str(), NODE_NAME_RETWEETED)) {
+            SinaStatus* status = new SinaStatus();
+            status->loadFromXml(child);
+            this->setRetweetedStatus(status);
+        }
     }
 }
 
