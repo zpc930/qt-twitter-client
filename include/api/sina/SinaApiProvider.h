@@ -4,6 +4,7 @@
 #include <api/ApiProvider.h>
 #include <api/sina/SinaParam.h>
 #include <api/sina/SinaStatus.h>
+#include <api/User.h>
 
 #define SINA_WEIBO_URL "http://api.t.sina.com.cn"
 
