@@ -3,6 +3,18 @@
 
 #include <QMainWindow>
 #include <QSystemTrayIcon>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <oauth.h>
+#include <iostream>
+#include <include/oauth/OauthHelper.h>
+#include <include/api/sina/SinaParam.h>
+#include <include/api/sina/SinaApi.h>
+#include <include/api/sina/SinaParam.h>
+#include <include/api/sina/SinaApiProvider.h>
+#include <include/api/ApiGlobal.h>
+
 
 namespace Ui {
     class MainWindow;
@@ -20,13 +32,17 @@ class MainWindow : public QMainWindow
 public:
      MainWindow();
     ~MainWindow();
-    
+
+
 public slots:
+    void myWeiboPageButtonClicked();
+    void preHtml();
 
+    
 private:
+    void setWebviewHtml(QString html);
+    list<Status*> lsStatus;
     Ui::MainWindow *ui;
-
-    QTimer *timer;
     QString basicHtml;
     QString homePageHtml;
     QString atMePageHtml;
@@ -34,6 +50,7 @@ private:
     QString favoritePageHtml;
     QString commentPageHtml;
     QString directMessagePageHtml;
+    QString contentFrame;
     bool homePageHtmlReady;
     bool homePageStatusReady;
     bool atMePageHtmlReady;
@@ -51,9 +68,13 @@ private:
     int directMessageUnread;
     int newFollower;
     int atMeMentionsUnread;
-    
-private:
-    void setWebviewHtml(QString html);
+
+    string url;
+    string pin;
+    class OauthHelper * oauth;
+    class SinaApiProvider * sina;
+    int ret;
+
 protected:
 
 };
