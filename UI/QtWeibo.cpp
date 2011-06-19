@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationDomain("GoDefine");
 
     /* Set Software Encoding */
-    QTextCodec *encoding = QTextCodec::codecForName("GB18030");
+    QTextCodec *encoding = QTextCodec::codecForName("utf-8");
     QTextCodec::setCodecForTr(encoding);
     QTextCodec::setCodecForLocale(encoding);
     QTextCodec::setCodecForCStrings(encoding);
