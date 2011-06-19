@@ -5,8 +5,8 @@
 #############################################################################
 
 
-CXX           = g++
-LINK          = g++
+CXX           = $(PREFIX)g++
+LINK          = $(PREFIX)g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
 INCLUDES     := -I../include -I$(QTPATH)/include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)

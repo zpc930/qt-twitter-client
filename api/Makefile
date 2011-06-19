@@ -5,12 +5,12 @@
 #############################################################################
 
 
-CXX           = g++
-LINK          = g++
+CXX           = $(PREFIX)g++
+LINK          = $(PREFIX)g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
-INCLUDES     := -I../include -I$(QTPATH)/include
+INCLUDES     := $(INCLUDES) -I../include 
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
-LDFLAGS      := -shared -Wl -L$(QTPATH)/lib
+LDFLAGS      := $(LDFLAGS) -shared -Wl
 LIBS         := -lQtXml -lQtCore
 LDFLAGS      := $(LDFLAGS) $(LIBS)
 TARGET        = libApiProvider.so
