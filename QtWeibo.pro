@@ -1,14 +1,43 @@
 QT             += core gui webkit network xml
 HEADERS += \
-    UI/mainwindow.h 
+    UI/mainwindow.h \
+    include/oauth/OauthHelper.h \
+    include/api/User.h \
+    include/api/Status.h \
+    include/api/Comment.h \
+    include/api/ApiProvider.h \
+    include/api/ApiGlobal.h \
+    include/api/sina/SinaStatus.h \
+    include/api/sina/SinaParam.h \
+    include/api/sina/SinaComment.h \
+    include/api/sina/SinaApiProvider.h \
+    include/api/sina/SinaApi.h
+
+INCLUDEPATH += include
+
+
+LIBS += \
+    -L/usr/local/lib \
+    -L/trunk/lib \
+    -L/OauthHelper \
+    -lOauthHelper \
+    -loauth \
+    -lSinaApiProvider \
+    -lQtXml \
+    -lQtNetwork \
+    -lQtCore \
+    -lApiProvider \
+    -lhttphelper
+
 
 SOURCES += \
     UI/mainwindow.cpp \
     UI/QtWeibo.cpp
 
+
 FORMS += \
     UI/mainwindow.ui
- 
+
 RESOURCES += \
     UI/Resources.qrc
 
