@@ -43,11 +43,11 @@ public:
 	SinaUser();
 	void loadFromXml(QDomNode node);
 	void loadListFromXml(QDomDocument docXml, list<User*>& lsUser);
-	void setStatus(Status & status);
-	Status & getStatus();
+	void setStatus(Status* status);
+	Status* getStatus();
 
 private:
-	Status & status;
+	Status* status;
 };
 
 #endif /* SINAUSER_H_ */
