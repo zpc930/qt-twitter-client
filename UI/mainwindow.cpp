@@ -43,9 +43,9 @@ MainWindow::MainWindow() :
 
     this->ui->webView_Main->setPage(new QWebPage(this));
     //this->timer = new QTimer(this);// timer
-    ui->toolButton_Friends->setText(tr("¹Ø×¢Êı %1").arg(100).toAscii());
-    ui->toolButton_Follower->setText(tr("·ÛË¿Êı %1").arg(100).toAscii());
-    ui->toolButton_WeiboCount->setText(tr("Î¢²©Êı %1").arg(100).toAscii());
+    ui->toolButton_Friends->setText(tr("å…³æ³¨æ•° %1").arg(100).toAscii());
+    ui->toolButton_Follower->setText(tr("é²œèŠ± %1").arg(100).toAscii());
+    ui->toolButton_WeiboCount->setText(tr("å¾®åšæ•° %1").arg(100).toAscii());
     ui->toolButton_UserName->setText(tr("GoDefine"));
 
     this->myWeiboPageHtmlReady = false;
@@ -89,8 +89,8 @@ void MainWindow::myWeiboPageButtonClicked()
         }
         myWeiboPageHtml.append(tmp.toAscii());
         qDebug("Our return is"+tmp.toAscii());
-        myWeiboPageHtml.append( "<a>Ê×Ò³</a>"
-                                "<a>ÏÂÒ»Ò³</a>"
+        myWeiboPageHtml.append( "<a>ÃŠÃ—Ã’Â³</a>"
+                                "<a>ÃÃ‚Ã’Â»Ã’Â³</a>"
                                 "");
     }
      ui->webView_Main->setHtml(myWeiboPageHtml);
