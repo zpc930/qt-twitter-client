@@ -7,7 +7,7 @@
 #include <api/sina/SinaUser.h>
 #include <api/sina/SinaStatus.h>
 
-SinaUser::SinaUser():status(){
+SinaUser::SinaUser():status(NULL){
 
 }
 
@@ -20,25 +20,25 @@ void SinaUser::loadFromXml(QDomNode node){
 		if(child.nodeName()==USER_NODE_NAME_ID){
 			setId(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_SCREEN_NAME){
-	    	this->setScreen_name(child.nodeValue());
+	    	this->setScreen_name(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_NAME){
-	    	this->setName(child.nodeValue());
+	    	this->setName(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_PROVINCE){
-	    	this->setProvince(child.nodeValue().toInt(&dataTransformFlag,10));
+	    	this->setProvince(child.toElement().text().toInt(&dataTransformFlag,10));
 	    }else if(child.nodeName()==USER_NODE_NAME_CITY){
-	    	this->setCity(child.nodeValue().toInt(&dataTransformFlag,10));
+	    	this->setCity(child.toElement().text().toInt(&dataTransformFlag,10));
 	    }else if(child.nodeName()==USER_NODE_NAME_LOCATION){
-	    	this->setLocation(child.nodeValue());
+	    	this->setLocation(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_DESCRIPTION){
-	    	this->setDescription(child.nodeValue());
+	    	this->setDescription(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_URL){
-	    	this->setUrl(child.nodeValue());
+	    	this->setUrl(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_PROFILE_IMAGEURL){
-	    	this->setProfile_image_url(child.nodeValue());
+	    	this->setProfile_image_url(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_DOMAIN){
-	    	this->setDomain(child.nodeValue());
+	    	this->setDomain(child.toElement().text());
 	    }else if(child.nodeName()==USER_NODE_NAME_GENDER){
-	    	QString qstr=child.nodeValue();
+	    	QString qstr=child.toElement().text();
 	    	User_Gender ug;
 	    	if(qstr=="m")
 	    		ug=GENDER_MALE;
@@ -48,17 +48,17 @@ void SinaUser::loadFromXml(QDomNode node){
 	    		ug=GENDER_UNKNOWN;
 	    	this->setGender(ug);
 	    }else if(child.nodeName()==USER_NODE_NAME_FOLLOWERS_COUNT){
-	    	this->setFollowers_count(child.nodeValue().toInt(&dataTransformFlag,10));
+	    	this->setFollowers_count(child.toElement().text().toInt(&dataTransformFlag,10));
 	    }else if(child.nodeName()==USER_NODE_NAME_STATUSES_COUNT){
-	    	this->setStatuses_count(child.nodeValue().toInt(&dataTransformFlag,10));
+	    	this->setStatuses_count(child.toElement().text().toInt(&dataTransformFlag,10));
 	    }else if(child.nodeName()==USER_NODE_NAME_FAVOURITES_COUNT){
-	    	this->setFavourites_count(child.nodeValue().toInt(&dataTransformFlag,10));
+	    	this->setFavourites_count(child.toElement().text().toInt(&dataTransformFlag,10));
 	    }else if(child.nodeName()==USER_NODE_NAME_CREATE_AT){
 	    	QDateTime dateTime;
-	    	dateTime.fromString(child.nodeValue(),Qt::TextDate);
+	    	dateTime.fromString(child.toElement().text(),Qt::TextDate);
 	    	this->setCreate_at(dateTime);
 	    }else if(child.nodeName()==USER_NODE_NAME_FOLLOWING){
-	    	QString qstr=child.nodeValue();
+	    	QString qstr=child.toElement().text();
 	    	bool followingTmp;
 	    	if(qstr=="false")
 	    		followingTmp=false;
@@ -66,7 +66,7 @@ void SinaUser::loadFromXml(QDomNode node){
 	    		followingTmp=true;
 	    	this->setFollowing(followingTmp);
 	    }else if(child.nodeName()==USER_NODE_NAME_VERIFIED){
-	    	QString qstr=child.nodeValue();
+	    	QString qstr=child.toElement().text();
 	    	bool verifiedTmp;
 	    	if(qstr=="false")
 	    		verifiedTmp=false;
@@ -76,7 +76,7 @@ void SinaUser::loadFromXml(QDomNode node){
 	    }else if(child.nodeName()==USER_NODE_NAME_STATUS){
 	    	SinaStatus * statusTmp=new SinaStatus();
 	    	statusTmp->loadFromXml(child);
-	    	this->setStatus(*statusTmp);
+	    	this->setStatus(statusTmp);
 	    }
 	}
 }
@@ -91,9 +91,9 @@ void SinaUser::loadListFromXml(QDomDocument docXml, list<User*> & lsUser){
 	    }
 }
 
-void SinaUser::setStatus(Status & status){
+void SinaUser::setStatus(Status* status){
 	this->status=status;
 }
-Status & SinaUser::getStatus(){
+Status* SinaUser::getStatus(){
 	return status;
 }
