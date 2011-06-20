@@ -11,7 +11,8 @@ HEADERS += \
     include/api/sina/SinaParam.h \
     include/api/sina/SinaComment.h \
     include/api/sina/SinaApiProvider.h \
-    include/api/sina/SinaApi.h
+    include/api/sina/SinaApi.h \
+    include/factory/ManagerFactory.h
 
 INCLUDEPATH += include
 
@@ -19,15 +20,16 @@ INCLUDEPATH += include
 LIBS += \
     -L/usr/local/lib \
     -L/trunk/lib \
-    -L/OauthHelper \
-    -lOauthHelper \
-    -loauth \
-    -lSinaApiProvider \
+    -Llib \
     -lQtXml \
     -lQtNetwork \
     -lQtCore \
+    -loauth \
+    -lOauthHelper \
+    -lSinaApiProvider \
     -lApiProvider \
-    -lhttphelper
+    -lhttphelper \
+    -lManagerFactory
 
 
 SOURCES += \
