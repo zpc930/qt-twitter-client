@@ -21,7 +21,7 @@ namespace Ui {
 }
 
 /*! \class MainWindow
- * \brief Ö÷´°¿Ú
+ * \brief æ˜¾ç¤ºä¸»çª—å£
  *
  *
  */
