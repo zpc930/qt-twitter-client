@@ -93,11 +93,12 @@ void MainWindow::myWeiboPageButtonClicked()
             lsStatus = sina->getFriendsTimeline();
             myWeiboPageStatusReady=true;
         }
-        QString statusHtml="<p><a>%1</a><a>%2</a></p>";
+        QString statusHtml="<p><div style='font-weight:bold;font-size:14px;background-color:#B1D0D9'>%1 说：</div>"\
+            "<div style='font-weight:normal;font-size:12px'>%2</div></p>";
         QString tmp;
         for (list<Status*>::iterator status = lsStatus.begin(); status != lsStatus.end(); status++) {
             tmp.append(statusHtml
-                    .arg(tr("Jason:"))
+                    .arg((*status)->getUser()->getName())
                     .arg((*status)->getText())
                     );
         }
