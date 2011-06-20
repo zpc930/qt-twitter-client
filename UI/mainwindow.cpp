@@ -108,8 +108,8 @@ void MainWindow::myWeiboPageButtonClicked()
         }
         myWeiboPageHtml.append(tmp.toAscii());
         qDebug("Our return is"+tmp.toAscii());
-        myWeiboPageHtml.append( "<a>Ê×Ò³</a>"
-                "<a>ÏÂÒ»Ò³</a>"
+        myWeiboPageHtml.append( "<a>首页</a>"
+                "<a>下一页</a>"
                 "");
     }
     ui->webView_Main->setHtml(myWeiboPageHtml);
