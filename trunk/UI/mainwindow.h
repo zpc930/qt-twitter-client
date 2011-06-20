@@ -71,8 +71,7 @@ private:
 
     string url;
     string pin;
-    class OauthHelper * oauth;
-    class SinaApiProvider * sina;
+    MiniBlogProvider * sina;
     int ret;
 
 protected:

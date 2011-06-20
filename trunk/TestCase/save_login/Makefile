@@ -1,26 +1,23 @@
 #############################################################################
 #
-# Makefile for building: libSinaApiProvider.so
+# Makefile for building: TestCase :oauthtest
 #
 #############################################################################
 
 
-CXX           = $(PREFIX)g++
-LINK          = $(PREFIX)g++
+CXX           = g++
+LINK          = g++
 CFLAGS       := -pipe -g -Wall -W -D_REENTRANT -fPIC
-INCLUDES     := $(INCLUDES) -I../include 
+INCLUDES     := -I../../include -I$(QTPATH)/include
 CXXFLAGS     := $(CXXFLAGS) $(INCLUDES)
-LDFLAGS      := $(LDFLAGS) -shared -Wl
-LIBS         := -lQtXml -lQtCore
+LDFLAGS      := -Wl -L/usr/local/lib -L$(QTPATH)/lib -L../../lib
+LIBS         := -loauth -lOauthHelper -lSinaApiProvider -lQtXml -lQtNetwork -lQtCore -lApiProvider -lhttphelper -lManagerFactory
 LDFLAGS      := $(LDFLAGS) $(LIBS)
-TARGET        = libApiProvider.so
+TARGET        = login
 
 ##
 
-OBJECTS       = ./Status.o \
-                ./Comment.o \
-                ./User.o \
-                ./ApiProvider.o
+OBJECTS       = ./login.o 
 
 all: $(TARGET)
 
@@ -28,6 +25,7 @@ all: $(TARGET)
 	$(CXX) -c $(CXXFLAGS) -o "$@" "$<"
 
 $(TARGET):  $(OBJECTS)
+	rm -rf $(TARGET)
 	$(LINK) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
 clean:

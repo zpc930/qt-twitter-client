@@ -29,6 +29,8 @@ public:
     /*oauth*/
     int OauthStep1(string * url);
     int OauthStep2(string pin);
+    void RevertLoginStatus(string AccessToken, string AccessSecret, string Verifier, string UserId);
+    int ExportLoginData(string * AccessToken, string * AccessSecret, string * Verifier, string * UserId);
 };
 
 #endif // APIPROVIDER_H
