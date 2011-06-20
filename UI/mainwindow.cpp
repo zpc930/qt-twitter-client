@@ -65,7 +65,7 @@ MainWindow::MainWindow() :
     this->myWeiboPageHtmlReady = false;
     this->myWeiboPageStatusReady = false;
 
-    QObject::connect( ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
+    QObject::connect( ui->toolButton_HomePage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
 
     QFile basicHtmlFile(":/UI/res/homepage.html");
     if(!basicHtmlFile.open(QFile::ReadOnly))
@@ -93,8 +93,12 @@ void MainWindow::myWeiboPageButtonClicked()
             lsStatus = sina->getFriendsTimeline();
             myWeiboPageStatusReady=true;
         }
-        QString statusHtml="<p><div style='font-weight:bold;font-size:14px;background-color:#B1D0D9'>%1 说：</div>"\
-            "<div style='font-weight:normal;font-size:12px'>%2</div></p>";
+        QString statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
+            "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
+            "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
+            "</div>";
+
+        //QString statusHtml="<div class='status_item'><div class='status_user'>%1 说：</div><div class='status_text'>%2</div></div>";
         QString tmp;
         for (list<Status*>::iterator status = lsStatus.begin(); status != lsStatus.end(); status++) {
             tmp.append(statusHtml

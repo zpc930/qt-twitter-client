@@ -4,6 +4,8 @@
 	font-size: 12px;
 }
 
+body{background-color:#000;} 
+
 a{text-decoration:none;}}
 a:link{text-decoration:none;}
 a:visited{text-decoration:none;}
@@ -33,6 +35,28 @@ a:hover{text-decoration:underline;}
 .status{
 	height:auto;
 }
+
+.status_item {
+    background-color:#B1D0D9;
+    margin-bottom:3px;
+}
+
+.status_user {
+    font-weight:bold;
+    color:blue;
+    font-size:14px;
+    background-color:#B1D0D9;
+    border-bottom:solid 1px grey;
+}
+
+.status_text {
+    font-weight:normal;
+    font-family:楷体;
+    font-size:13px;
+    margin:5px 10px 0px 10px;
+    line-height:15px;
+}
+
 .userinfo{
 	float: left;
 	width: 55px;
