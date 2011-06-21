@@ -79,8 +79,8 @@ MainWindow::MainWindow() :
     QObject::connect(ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
     QObject::connect(ui->toolButton_AtMePage, SIGNAL(clicked()), this, SLOT(mentionMePageButtonClicked()) );
     QObject::connect(ui->toolButton_CommentPage, SIGNAL(clicked()), this, SLOT(commentPageButtonClicked()) );
-    //QObject::connect(ui->toolButton_configure, SIGNAL(clicked()), this, SLOT(configureButtonClicked()));
-    QObject::connect(ui->webView_Main, SIGNAL(linkClicked(QUrl)), this, SLOT(configureButtonClicked(QUrl)));
+    QObject::connect(ui->toolButton_NewWeiBo, SIGNAL(clicked()), this, SLOT(newWeiboButtonClicked()) );
+    QObject::connect(ui->webView_Main, SIGNAL(linkClicked(QUrl)), this, SLOT(linkButtonClicked(QUrl)));
 
     QFile basicHtmlFile(":/UI/res/homepage.html");
     if(!basicHtmlFile.open(QFile::ReadOnly))
@@ -96,7 +96,7 @@ MainWindow::MainWindow() :
                         "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
                         "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
                         "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;text-align:right;'>"\
-                        "<a href='comment:%3'>回复</a> <a href='repost:%4'>转发</a>"
+                        "<a href='REPLY:%3:%4'>回复</a> <a href='REPOST:%5:%6'>转发</a>"
                         "</div></div>";
 }
 
@@ -105,11 +105,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::configureButtonClicked(QUrl url)
+void MainWindow::linkButtonClicked(QUrl url)
 {
     cout<<"loading"<<endl;
     cout<<url.toString().toStdString()<<endl;
     cout<<"loaded"<<endl;
+}
+
+
+void MainWindow::newWeiboButtonClicked()
+{
+    cout<<"to create a new weibo"<<endl;
 }
 
 void MainWindow::homePageButtonClicked()
@@ -126,7 +132,9 @@ void MainWindow::homePageButtonClicked()
         tmp.append(statusHtml
                 .arg((*status)->getUser()->getName())
                 .arg((*status)->getText())
+                .arg(COMMENT)
                 .arg((*status)->getId())
+                .arg(REPOST)
                 .arg((*status)->getId())
                 );
     }
@@ -162,7 +170,9 @@ void MainWindow::myWeiboPageButtonClicked()
         tmp.append(statusHtml
                 .arg((*status)->getUser()->getName())
                 .arg((*status)->getText())
+                .arg(COMMENT)
                 .arg((*status)->getId())
+                .arg(REPOST)
                 .arg((*status)->getId())
                 );
     }
@@ -198,7 +208,9 @@ void MainWindow::mentionMePageButtonClicked()
         tmp.append(statusHtml
                 .arg((*status)->getUser()->getName())
                 .arg((*status)->getText())
+                .arg(COMMENT)
                 .arg((*status)->getId())
+                .arg(REPOST)
                 .arg((*status)->getId())
                 );
     }
@@ -232,7 +244,9 @@ void MainWindow::commentPageButtonClicked()
         tmp.append(statusHtml
                 .arg((*comment)->getUser()->getName())
                 .arg((*comment)->getText())
+                .arg(COMMENT_REPLY)
                 .arg((*comment)->getId())
+                .arg(REPOST)
                 .arg((*comment)->getId())
                 );
     }

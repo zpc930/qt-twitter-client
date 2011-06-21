@@ -16,6 +16,14 @@
 #include <include/api/sina/SinaApiProvider.h>
 #include <include/api/ApiGlobal.h>
 
+typedef enum
+{
+    STATUS = 1,
+    COMMENT,
+    COMMENT_REPLY,
+    REPOST,
+    DIRECT_MESSAGE
+}e_click_type_t;
 
 namespace Ui {
     class MainWindow;
@@ -36,11 +44,12 @@ public:
 
 
 public slots:
+    void newWeiboButtonClicked();
     void myWeiboPageButtonClicked();
     void homePageButtonClicked();
     void mentionMePageButtonClicked();
     void commentPageButtonClicked();
-    void configureButtonClicked(QUrl url);
+    void linkButtonClicked(QUrl url);
     void preHtml();
 
     

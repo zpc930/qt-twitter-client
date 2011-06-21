@@ -38,7 +38,8 @@ SOURCES += \
 
 
 FORMS += \
-    UI/mainwindow.ui
+    UI/mainwindow.ui \
+    UI/sendstatusdialog.ui
 
 RESOURCES += \
     UI/Resources.qrc
