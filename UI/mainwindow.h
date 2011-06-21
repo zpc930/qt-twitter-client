@@ -36,6 +36,8 @@ public:
 
 public slots:
     void myWeiboPageButtonClicked();
+    void homePageButtonClicked();
+    void mentionMePageButtonClicked();
     void preHtml();
 
     
@@ -72,6 +74,7 @@ private:
     string url;
     string pin;
     MiniBlogProvider * sina;
+    int currentUserId;
     int ret;
 
 protected:
