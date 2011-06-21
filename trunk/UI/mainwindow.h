@@ -39,6 +39,7 @@ public slots:
     void myWeiboPageButtonClicked();
     void homePageButtonClicked();
     void mentionMePageButtonClicked();
+    void commentPageButtonClicked();
     void configureButtonClicked(QUrl url);
     void preHtml();
 
@@ -46,6 +47,7 @@ public slots:
 private:
     void setWebviewHtml(QString html);
     list<Status*> lsStatus;
+    list<Comment*> lsComment;
     Ui::MainWindow *ui;
     QString statusHtml;
     QString basicHtml;

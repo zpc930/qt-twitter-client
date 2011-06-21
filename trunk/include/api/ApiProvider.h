@@ -24,6 +24,7 @@ public:
     /* comments */
     virtual list<Comment*> getCommentByStatus(QString statusId, int count = 20, int page = 1) = 0;
     virtual int updateComment(Comment& comment) = 0;
+    virtual list<Comment*> getCommentsTimeline(int count = 20, int page = 1) = 0;
 
     /*Users*/
     virtual User* getUser(int id) = 0;
