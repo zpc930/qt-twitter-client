@@ -31,9 +31,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-     MainWindow();
+    MainWindow();
     ~MainWindow();
-
+    void showHomePage();
 
 public slots:
     void newWeiboButtonClicked();

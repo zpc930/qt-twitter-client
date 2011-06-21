@@ -45,9 +45,6 @@ SendStatusDialog::SendStatusDialog(Send_Category category, QString statusId, QSt
     this->wordsLimit = 140;
     this->setWindowTitle(tr(sendCategoryStr[category]));
     QObject::connect(ui->pushButton_SendStatus, SIGNAL(clicked()), this, SLOT(sendButtonClicked()));
-    QObject::connect(ui->pushButton_Close, SIGNAL(clicked()), this, SLOT(close()));
-    //QObject::connect(this, SIGNAL(finished(int)), this, SLOT(done(int)));
-    //QObject::connect(this, SIGNAL(accepted()), this, SLOT(accept()));
     qDebug("type:%d, userId:%d, status:%s, comment:%s",
            category, userId, statusId.toStdString().c_str(), commentId.toStdString().c_str());
 }

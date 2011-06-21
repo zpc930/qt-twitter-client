@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>230</width>
     <height>155</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
+    <width>230</width>
     <height>0</height>
    </size>
   </property>
@@ -94,13 +94,6 @@
          </property>
          <property name="text">
           <string>发表</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_Close">
-         <property name="text">
-          <string>关闭</string>
          </property>
         </widget>
        </item>
