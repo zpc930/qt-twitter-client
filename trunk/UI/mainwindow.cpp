@@ -98,6 +98,7 @@ MainWindow::MainWindow() :
                         "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;text-align:right;'>"\
                         "<a href='REPLY:%3:%4'>回复</a> <a href='REPOST:%5:%6'>转发</a>"
                         "</div></div>";
+    this->showHomePage();
 }
 
 MainWindow::~MainWindow()
@@ -130,6 +131,33 @@ void MainWindow::linkButtonClicked(QUrl url)
     cout<<"loaded"<<endl;
 }
 
+void MainWindow::showHomePage()
+{
+    // 清空原有信息
+    myWeiboPageHtml.clear();
+
+    // 获取主页微博列表
+    lsStatus = sina->getFriendsTimeline();
+
+    QString tmp;
+    for (list<Status*>::iterator status = lsStatus.begin(); status != lsStatus.end(); status++) {
+        tmp.append(statusHtml
+                .arg((*status)->getUser()->getName())
+                .arg((*status)->getText())
+                .arg(COMMENT)
+                .arg((*status)->getId())
+                .arg(REPOST)
+                .arg((*status)->getId())
+                );
+    }
+    myWeiboPageHtml.append(tmp.toAscii());
+    qDebug("Our return is"+tmp.toAscii());
+    myWeiboPageHtml.append( "<a>首页</a>"
+            "<a>下一页</a>"
+            "");
+
+    ui->webView_Main->setHtml(myWeiboPageHtml);
+}
 
 void MainWindow::newWeiboButtonClicked()
 {
@@ -141,7 +169,6 @@ void MainWindow::newWeiboButtonClicked()
 
 void MainWindow::homePageButtonClicked()
 {
-
     // 清空原有信息
     myWeiboPageHtml.clear();
 
