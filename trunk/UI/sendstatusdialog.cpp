@@ -45,6 +45,7 @@ SendStatusDialog::SendStatusDialog(Send_Category category, QString statusId, QSt
     this->wordsLimit = 140;
     this->setWindowTitle(tr(sendCategoryStr[category]));
     QObject::connect(ui->pushButton_SendStatus, SIGNAL(clicked()), this, SLOT(sendButtonClicked()));
+    QObject::connect(ui->pushButton_Close, SIGNAL(clicked()), this, SLOT(close()));
     //QObject::connect(this, SIGNAL(finished(int)), this, SLOT(done(int)));
     //QObject::connect(this, SIGNAL(accepted()), this, SLOT(accept()));
     qDebug("type:%d, userId:%d, status:%s, comment:%s",
@@ -62,33 +63,36 @@ void SendStatusDialog::sendButtonClicked()
     MiniBlogProvider* provider = ManagerFactory::getInstance()->getProvider(PROVIDER_SINA);
     Status* status;
     Comment* comment;
+    int ret = 0;
     ui->pushButton_SendStatus->setEnabled(false);
     ui->pushButton_SendStatus->setText("发表中...");
     qDebug("content is %s",ui->textEdit_statusContent->toPlainText().toStdString().c_str());
     switch(this->dialogType) {
         case STATUS:
             status = new Status(ui->textEdit_statusContent->toPlainText().toStdString().c_str());
-            provider->updateStatus(*status);
+            ret = provider->updateStatus(*status);
             delete status;
             break;
         case COMMENT:
         case COMMENT_REPLY:
             qDebug("comment id is %s", this->commentId.toStdString().c_str());
             comment = new Comment(ui->textEdit_statusContent->toPlainText().toStdString().c_str(), this->statusId, this->commentId);
-            provider->updateComment(*comment);
+            ret = provider->updateComment(*comment);
             delete comment;
             break;
         case REPOST:
             status = new Status(ui->textEdit_statusContent->toPlainText().toStdString().c_str());
             status->setInReplyInfo(this->statusId.toStdString().c_str(), 0, "");
-            provider->updateStatus(*status);
+            ret = provider->updateStatus(*status);
             delete status;
             break;
         default:
             break;
     }
-
-    //emit accepted();
+    if (ret == 0) {
+        ui->pushButton_SendStatus->setText("发表成功!");
+    }
+    close();
 }
 
 

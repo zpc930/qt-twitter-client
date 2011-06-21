@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>149</height>
+    <height>155</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -80,17 +80,27 @@
        <item>
         <widget class="QLabel" name="label_wordsCount">
          <property name="layoutDirection">
-          <enum>Qt::RightToLeft</enum>
+          <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>WordsCount</string>
+          <string>不要超过140个字！</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_SendStatus">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="text">
           <string>发表</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_Close">
+         <property name="text">
+          <string>关闭</string>
          </property>
         </widget>
        </item>
