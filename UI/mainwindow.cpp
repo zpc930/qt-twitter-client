@@ -159,6 +159,8 @@ void MainWindow::myWeiboPageButtonClicked()
         tmp.append(statusHtml
                 .arg((*status)->getUser()->getName())
                 .arg((*status)->getText())
+                .arg((*status)->getId())
+                .arg((*status)->getId())
                 );
     }
     myWeiboPageHtml.append(tmp.toAscii());
@@ -193,6 +195,8 @@ void MainWindow::mentionMePageButtonClicked()
         tmp.append(statusHtml
                 .arg((*status)->getUser()->getName())
                 .arg((*status)->getText())
+                .arg((*status)->getId())
+                .arg((*status)->getId())
                 );
     }
     myWeiboPageHtml.append(tmp.toAscii());
