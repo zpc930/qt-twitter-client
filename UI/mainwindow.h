@@ -53,18 +53,6 @@ private:
     QString commentPageHtml;
     QString directMessagePageHtml;
     QString contentFrame;
-    bool homePageHtmlReady;
-    bool homePageStatusReady;
-    bool atMePageHtmlReady;
-    bool atMePageStatusReady;
-    bool myWeiboPageHtmlReady;
-    bool myWeiboPageStatusReady;
-    bool favoritePageHtmlReady;
-    bool favoritePageStatusReady;
-    bool commentPageHtmlReady;
-    bool commentPageStatusReady;
-    bool directMessagePageHtmlReady;
-    bool directMessagePageStatusReady;
     int statusUnread;
     int commentsUnread;
     int directMessageUnread;
