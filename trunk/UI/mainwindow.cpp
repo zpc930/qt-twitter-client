@@ -60,10 +60,10 @@ MainWindow::MainWindow() :
 
     this->ui->webView_Main->setPage(new QWebPage(this));
     //this->timer = new QTimer(this);// timer
-//    ui->toolButton_Friends->setText(tr("关注数 %1").arg(100).toAscii());
-//    ui->toolButton_Follower->setText(tr("鲜花 %1").arg(100).toAscii());
-//    ui->toolButton_WeiboCount->setText(tr("微博数 %1").arg(100).toAscii());
-//    ui->toolButton_UserName->setText(tr("GoDefine"));
+    ui->toolButton_Friends->setText(tr("关注数 %1").arg(100).toAscii());
+    ui->toolButton_Follower->setText(tr("鲜花 %1").arg(100).toAscii());
+    ui->toolButton_WeiboCount->setText(tr("微博数 %1").arg(100).toAscii());
+    ui->toolButton_UserName->setText(tr("GoDefine"));
     cout<<"UseId"<<currentUserId<<endl;
     cout<<"微博数"<<(sina->getUser(currentUserId).getStatuses_count())<<endl;
     cout<<"粉丝数"<<(sina->getUser(currentUserId).getFollowers_count())<<endl;
@@ -212,5 +212,11 @@ void MainWindow::mentionMePageButtonClicked()
     //    delete sina;
 }
 
-
+void MainWindow::preHtml()
+{
+    ui->webView_Main->setHtml("<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
+                                            "<center><img src=qrc:/toolButton/images/loading.gif /></center>");
+    QObject::disconnect(ui->webView_Main->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
+                        this, SLOT(addJavaScriptObject()));
+}
 
