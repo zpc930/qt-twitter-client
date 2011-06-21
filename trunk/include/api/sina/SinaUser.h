@@ -17,6 +17,7 @@
 #include <QtXml/QDomNode>
 #include <api/Status.h>
 
+#define NODE_USER_ROOT "user"
 #define USER_NODE_NAME_ID "id"
 #define USER_NODE_NAME_SCREEN_NAME "screen_name"
 #define USER_NODE_NAME_NAME "name"

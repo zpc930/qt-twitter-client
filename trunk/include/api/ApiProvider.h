@@ -26,7 +26,7 @@ public:
     virtual int updateComment(Comment& comment) = 0;
 
     /*Users*/
-    virtual User getUser(int id) = 0;
+    virtual User* getUser(int id) = 0;
 
     /*oauth*/
     int OauthStep1(string * url);

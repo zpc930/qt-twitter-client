@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSystemTrayIcon>
+#include <QtCore/QUrl>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,6 +39,7 @@ public slots:
     void myWeiboPageButtonClicked();
     void homePageButtonClicked();
     void mentionMePageButtonClicked();
+    void configureButtonClicked(QUrl url);
     void preHtml();
 
     
@@ -45,6 +47,7 @@ private:
     void setWebviewHtml(QString html);
     list<Status*> lsStatus;
     Ui::MainWindow *ui;
+    QString statusHtml;
     QString basicHtml;
     QString homePageHtml;
     QString atMePageHtml;
@@ -62,7 +65,7 @@ private:
     string url;
     string pin;
     MiniBlogProvider * sina;
-    int currentUserId;
+    User *currentUser;
     int ret;
 
 protected:

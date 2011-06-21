@@ -25,6 +25,7 @@ MainWindow::MainWindow() :
     ret=0;
     ifstream fin;
     ofstream fout;
+    int currentUserId;
     string AccessToken, AccessSecret, Verifier, UserId;
 
     sina = ManagerFactory::getInstance()->getProvider(PROVIDER_SINA);
@@ -55,32 +56,28 @@ MainWindow::MainWindow() :
         sina->RevertLoginStatus(AccessToken, AccessSecret, Verifier, UserId);
     }
 
-    // set current user id
-    this->currentUserId = atoi(UserId.c_str());
+    // 设置当前用户
+    currentUserId = atoi(UserId.c_str());
+    this->currentUser = sina->getUser(currentUserId);
 
     this->ui->webView_Main->setPage(new QWebPage(this));
     //this->timer = new QTimer(this);// timer
-    ui->toolButton_Friends->setText(tr("关注数 %1").arg(100).toAscii());
-    ui->toolButton_Follower->setText(tr("鲜花 %1").arg(100).toAscii());
-    ui->toolButton_WeiboCount->setText(tr("微博数 %1").arg(100).toAscii());
     ui->toolButton_UserName->setText(tr("GoDefine"));
     cout<<"UseId"<<currentUserId<<endl;
-    cout<<"微博数"<<(sina->getUser(currentUserId).getStatuses_count())<<endl;
-    cout<<"粉丝数"<<(sina->getUser(currentUserId).getFollowers_count())<<endl;
-    cout<<"收藏数"<<(sina->getUser(currentUserId).getFavourites_count())<<endl;
-    cout<<"UserName"<<(sina->getUser(currentUserId).getScreen_name().toStdString())<<endl;
-    cout<<"ProfileUrl"<<(sina->getUser(currentUserId).getProfile_image_url().toStdString())<<endl;
 
+    ui->toolButton_Friends->setText(tr("微博数 %1").arg(currentUser->getStatuses_count()));
+    ui->toolButton_Follower->setText(tr("粉丝数 %1").arg(currentUser->getFollowers_count()));
+    ui->toolButton_WeiboCount->setText(tr("收藏数 %1").arg(currentUser->getFavourites_count()));
+    ui->toolButton_UserName->setText(currentUser->getScreen_name());
+    //ui->toolButton_Logo->setIcon(currentUser->getProfile_image_url());
 
-//    ui->toolButton_Friends->setText(tr("微博数 %1").arg(sina->getUser(currentUserId).getStatuses_count()));
-//    ui->toolButton_Follower->setText(tr("粉丝数 %1").arg(sina->getUser(currentUserId).getFollowers_count()));
-//    ui->toolButton_WeiboCount->setText(tr("收藏数 %1").arg(sina->getUser(currentUserId).getFavourites_count()));
-//    ui->toolButton_UserName->setText(sina->getUser(currentUserId).getScreen_name());
-//    ui->toolButton_Logo->setIcon(sina->getUser(currentUserId).getProfile_image_url());
+    ui->webView_Main->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
 
     QObject::connect(ui->toolButton_HomePage, SIGNAL(clicked()), this, SLOT(homePageButtonClicked()) );
     QObject::connect(ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
     QObject::connect(ui->toolButton_AtMePage, SIGNAL(clicked()), this, SLOT(mentionMePageButtonClicked()) );
+    //QObject::connect(ui->toolButton_configure, SIGNAL(clicked()), this, SLOT(configureButtonClicked()));
+    QObject::connect(ui->webView_Main, SIGNAL(linkClicked(QUrl)), this, SLOT(configureButtonClicked(QUrl)));
 
     QFile basicHtmlFile(":/UI/res/homepage.html");
     if(!basicHtmlFile.open(QFile::ReadOnly))
@@ -90,11 +87,26 @@ MainWindow::MainWindow() :
     QTextStream stream(&basicHtmlFile);
     basicHtml = stream.readAll();
     basicHtmlFile.close();
+
+    // 初始化status模板HTML
+    this->statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
+                        "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
+                        "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
+                        "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;text-align:right;'>"\
+                        "<a href='comment:%3'>回复</a> <a href='repost:%4'>转发</a>"
+                        "</div></div>";
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::configureButtonClicked(QUrl url)
+{
+    cout<<"loading"<<endl;
+    cout<<url.toString().toStdString()<<endl;
+    cout<<"loaded"<<endl;
 }
 
 void MainWindow::homePageButtonClicked()
@@ -106,17 +118,13 @@ void MainWindow::homePageButtonClicked()
     // 获取主页微博列表
     lsStatus = sina->getFriendsTimeline();
 
-    QString statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
-                        "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
-                        "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
-                        "</div>";
-
-    //QString statusHtml="<div class='status_item'><div class='status_user'>%1 说：</div><div class='status_text'>%2</div></div>";
     QString tmp;
     for (list<Status*>::iterator status = lsStatus.begin(); status != lsStatus.end(); status++) {
         tmp.append(statusHtml
                 .arg((*status)->getUser()->getName())
                 .arg((*status)->getText())
+                .arg((*status)->getId())
+                .arg((*status)->getId())
                 );
     }
     myWeiboPageHtml.append(tmp.toAscii());
@@ -143,12 +151,7 @@ void MainWindow::myWeiboPageButtonClicked()
     myWeiboPageHtml.clear();
 
     // 获取用户微博列表
-    lsStatus = sina->getUserTimeline(currentUserId);
-
-    QString statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
-                        "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
-                        "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
-                        "</div>";
+    lsStatus = sina->getUserTimeline(currentUser->getId().toInt());
 
     //QString statusHtml="<div class='status_item'><div class='status_user'>%1 说：</div><div class='status_text'>%2</div></div>";
     QString tmp;
@@ -184,12 +187,7 @@ void MainWindow::mentionMePageButtonClicked()
     // 获取mentions微博列表
     cout<<"Get mentions"<<endl;
     lsStatus = sina->getMentions();
-    QString statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
-                        "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
-                        "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
-                        "</div>";
 
-    //QString statusHtml="<div class='status_item'><div class='status_user'>%1 说：</div><div class='status_text'>%2</div></div>";
     QString tmp;
     for (list<Status*>::iterator status = lsStatus.begin(); status != lsStatus.end(); status++) {
         tmp.append(statusHtml
