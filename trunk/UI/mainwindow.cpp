@@ -70,7 +70,7 @@ MainWindow::MainWindow() :
     ui->toolButton_Friends->setText(tr("微博数 %1").arg(currentUser->getStatuses_count()));
     ui->toolButton_Follower->setText(tr("粉丝数 %1").arg(currentUser->getFollowers_count()));
     ui->toolButton_WeiboCount->setText(tr("收藏数 %1").arg(currentUser->getFavourites_count()));
-    //ui->toolButton_UserName->setText(currentUser->getScreen_name());
+    ui->toolButton_UserName->setText(currentUser->getScreen_name());
     //ui->toolButton_Logo->setIcon(currentUser->getProfile_image_url());
 
     ui->webView_Main->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
