@@ -55,6 +55,9 @@ MainWindow::MainWindow() :
         sina->RevertLoginStatus(AccessToken, AccessSecret, Verifier, UserId);
     }
 
+    // set current user id
+    this->currentUserId = atoi(UserId.c_str());
+
     this->ui->webView_Main->setPage(new QWebPage(this));
     //this->timer = new QTimer(this);// timer
     ui->toolButton_Friends->setText(tr("关注数 %1").arg(100).toAscii());
@@ -65,7 +68,9 @@ MainWindow::MainWindow() :
     this->myWeiboPageHtmlReady = false;
     this->myWeiboPageStatusReady = false;
 
-    QObject::connect( ui->toolButton_HomePage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
+    QObject::connect(ui->toolButton_HomePage, SIGNAL(clicked()), this, SLOT(homePageButtonClicked()) );
+    QObject::connect(ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
+    QObject::connect(ui->toolButton_AtMePage, SIGNAL(clicked()), this, SLOT(mentionMePageButtonClicked()) );
 
     QFile basicHtmlFile(":/UI/res/homepage.html");
     if(!basicHtmlFile.open(QFile::ReadOnly))
@@ -82,7 +87,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::myWeiboPageButtonClicked()
+void MainWindow::homePageButtonClicked()
 {
     this->preHtml();
     if(!myWeiboPageHtmlReady)
@@ -122,6 +127,89 @@ void MainWindow::myWeiboPageButtonClicked()
     //    dealWebkitEvent->sendStatusesCounts(countsInJsonFormat);
     //    delete sina;
 }
+
+void MainWindow::myWeiboPageButtonClicked()
+{
+    this->preHtml();
+    if(!myWeiboPageHtmlReady)
+    {
+
+        if(!myWeiboPageStatusReady)
+        {
+            lsStatus = sina->getUserTimeline(currentUserId);
+            myWeiboPageStatusReady=true;
+        }
+        QString statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
+            "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
+            "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
+            "</div>";
+
+        //QString statusHtml="<div class='status_item'><div class='status_user'>%1 说：</div><div class='status_text'>%2</div></div>";
+        QString tmp;
+        for (list<Status*>::iterator status = lsStatus.begin(); status != lsStatus.end(); status++) {
+            tmp.append(statusHtml
+                    .arg((*status)->getUser()->getName())
+                    .arg((*status)->getText())
+                    );
+        }
+        myWeiboPageHtml.append(tmp.toAscii());
+        qDebug("Our return is"+tmp.toAscii());
+        myWeiboPageHtml.append( "<a>首页</a>"
+                "<a>下一页</a>"
+                "");
+    }
+    ui->webView_Main->setHtml(myWeiboPageHtml);
+    //this->setWebviewHtml(myWeiboPageHtml);
+    //    QString countsInJsonFormat = sina->getStatusCountsByJson(account->userWeiboPageStatus);
+    //    while(!dealWebkitEvent->isDomReady())
+    //    {
+    //        QApplication::processEvents();
+    //    }
+    //    dealWebkitEvent->sendStatusesCounts(countsInJsonFormat);
+    //    delete sina;
+}
+
+void MainWindow::mentionMePageButtonClicked()
+{
+    this->preHtml();
+    if(!myWeiboPageHtmlReady)
+    {
+
+        if(!myWeiboPageStatusReady)
+        {
+            lsStatus = sina->getMentions();
+            myWeiboPageStatusReady=true;
+        }
+        QString statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
+            "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
+            "<div style='font-weight:normal;font-family:楷体;font-size:13px;margin:5px 10px 0px 10px;line-height:15px;'>%2</div>"\
+            "</div>";
+
+        //QString statusHtml="<div class='status_item'><div class='status_user'>%1 说：</div><div class='status_text'>%2</div></div>";
+        QString tmp;
+        for (list<Status*>::iterator status = lsStatus.begin(); status != lsStatus.end(); status++) {
+            tmp.append(statusHtml
+                    .arg((*status)->getUser()->getName())
+                    .arg((*status)->getText())
+                    );
+        }
+        myWeiboPageHtml.append(tmp.toAscii());
+        qDebug("Our return is"+tmp.toAscii());
+        myWeiboPageHtml.append( "<a>首页</a>"
+                "<a>下一页</a>"
+                "");
+    }
+    ui->webView_Main->setHtml(myWeiboPageHtml);
+    //this->setWebviewHtml(myWeiboPageHtml);
+    //    QString countsInJsonFormat = sina->getStatusCountsByJson(account->userWeiboPageStatus);
+    //    while(!dealWebkitEvent->isDomReady())
+    //    {
+    //        QApplication::processEvents();
+    //    }
+    //    dealWebkitEvent->sendStatusesCounts(countsInJsonFormat);
+    //    delete sina;
+}
+
 
 void MainWindow::preHtml()
 {

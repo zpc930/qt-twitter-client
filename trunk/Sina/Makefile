@@ -27,6 +27,8 @@ OBJECTS       = ./SinaApi.o \
         ./api/Statuses/update_status.o \
         ./api/Statuses/SinaStatus.o \
         ./api/Statuses/comments.o \
+        ./api/Statuses/user_timeline.o \
+        ./api/Statuses/mentions.o \
         ./api/Comments/SinaComment.o \
         ./api/Comments/updateComment.o \
         ./api/Users/SinaUser.o \
