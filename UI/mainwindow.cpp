@@ -60,10 +60,23 @@ MainWindow::MainWindow() :
 
     this->ui->webView_Main->setPage(new QWebPage(this));
     //this->timer = new QTimer(this);// timer
-    ui->toolButton_Friends->setText(tr("关注数 %1").arg(100).toAscii());
-    ui->toolButton_Follower->setText(tr("鲜花 %1").arg(100).toAscii());
-    ui->toolButton_WeiboCount->setText(tr("微博数 %1").arg(100).toAscii());
-    ui->toolButton_UserName->setText(tr("GoDefine"));
+//    ui->toolButton_Friends->setText(tr("关注数 %1").arg(100).toAscii());
+//    ui->toolButton_Follower->setText(tr("鲜花 %1").arg(100).toAscii());
+//    ui->toolButton_WeiboCount->setText(tr("微博数 %1").arg(100).toAscii());
+//    ui->toolButton_UserName->setText(tr("GoDefine"));
+    cout<<"UseId"<<currentUserId<<endl;
+    cout<<"微博数"<<(sina->getUser(currentUserId).getStatuses_count())<<endl;
+    cout<<"粉丝数"<<(sina->getUser(currentUserId).getFollowers_count())<<endl;
+    cout<<"收藏数"<<(sina->getUser(currentUserId).getFavourites_count())<<endl;
+    cout<<"UserName"<<(sina->getUser(currentUserId).getScreen_name().toStdString())<<endl;
+    cout<<"ProfileUrl"<<(sina->getUser(currentUserId).getProfile_image_url().toStdString())<<endl;
+
+
+//    ui->toolButton_Friends->setText(tr("微博数 %1").arg(sina->getUser(currentUserId).getStatuses_count()));
+//    ui->toolButton_Follower->setText(tr("粉丝数 %1").arg(sina->getUser(currentUserId).getFollowers_count()));
+//    ui->toolButton_WeiboCount->setText(tr("收藏数 %1").arg(sina->getUser(currentUserId).getFavourites_count()));
+//    ui->toolButton_UserName->setText(sina->getUser(currentUserId).getScreen_name());
+//    ui->toolButton_Logo->setIcon(sina->getUser(currentUserId).getProfile_image_url());
 
     QObject::connect(ui->toolButton_HomePage, SIGNAL(clicked()), this, SLOT(homePageButtonClicked()) );
     QObject::connect(ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
@@ -86,7 +99,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::homePageButtonClicked()
 {
-    this->preHtml();
 
     // 清空原有信息
     myWeiboPageHtml.clear();
@@ -126,7 +138,6 @@ void MainWindow::homePageButtonClicked()
 
 void MainWindow::myWeiboPageButtonClicked()
 {
-    this->preHtml();
 
     // 清空原有信息
     myWeiboPageHtml.clear();
@@ -166,7 +177,6 @@ void MainWindow::myWeiboPageButtonClicked()
 
 void MainWindow::mentionMePageButtonClicked()
 {
-    this->preHtml();
 
     // 清空原有信息
     myWeiboPageHtml.clear();
@@ -202,13 +212,5 @@ void MainWindow::mentionMePageButtonClicked()
     //    delete sina;
 }
 
-
-void MainWindow::preHtml()
-{
-    ui->webView_Main->setHtml("<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
-            "<center><img src=qrc:/toolButton/images/loading.gif /></center>");
-    QObject::disconnect(ui->webView_Main->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
-            this, SLOT(addJavaScriptObject()));
-}
 
 
