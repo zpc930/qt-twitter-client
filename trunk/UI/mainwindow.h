@@ -15,15 +15,7 @@
 #include <include/api/sina/SinaParam.h>
 #include <include/api/sina/SinaApiProvider.h>
 #include <include/api/ApiGlobal.h>
-
-typedef enum
-{
-    STATUS = 1,
-    COMMENT,
-    COMMENT_REPLY,
-    REPOST,
-    DIRECT_MESSAGE
-}e_click_type_t;
+#include "sendstatusdialog.h"
 
 namespace Ui {
     class MainWindow;

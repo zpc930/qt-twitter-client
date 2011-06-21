@@ -79,7 +79,7 @@ MainWindow::MainWindow() :
     QObject::connect(ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
     QObject::connect(ui->toolButton_AtMePage, SIGNAL(clicked()), this, SLOT(mentionMePageButtonClicked()) );
     QObject::connect(ui->toolButton_CommentPage, SIGNAL(clicked()), this, SLOT(commentPageButtonClicked()) );
-    QObject::connect(ui->toolButton_NewWeiBo, SIGNAL(clicked()), this, SLOT(newWeiboButtonClicked()) );
+    QObject::connect(ui->toolButton_NewWeiBo, SIGNAL(clicked()), this, SLOT(newWeiboButtonClicked()));
     QObject::connect(ui->webView_Main, SIGNAL(linkClicked(QUrl)), this, SLOT(linkButtonClicked(QUrl)));
 
     QFile basicHtmlFile(":/UI/res/homepage.html");
@@ -109,6 +109,24 @@ void MainWindow::linkButtonClicked(QUrl url)
 {
     cout<<"loading"<<endl;
     cout<<url.toString().toStdString()<<endl;
+    QStringList lsStr = url.toString().split(":");
+    Send_Category category = (Send_Category)lsStr[1].toInt();
+    SendStatusDialog* dialog = NULL;
+    switch(category)  {
+        case COMMENT:
+            dialog = new SendStatusDialog(category, lsStr[2], "", 0);
+            break;
+        case COMMENT_REPLY:
+            dialog = new SendStatusDialog(category, lsStr[3], lsStr[2], 0);
+            break;
+        case REPOST:
+            dialog = new SendStatusDialog(category, lsStr[2], "", 0);
+            break;
+        default:
+            break;
+    }
+    dialog->exec();
+    delete dialog;
     cout<<"loaded"<<endl;
 }
 
@@ -116,6 +134,9 @@ void MainWindow::linkButtonClicked(QUrl url)
 void MainWindow::newWeiboButtonClicked()
 {
     cout<<"to create a new weibo"<<endl;
+    SendStatusDialog dialog(STATUS, "", "", 0);
+    dialog.exec();
+    cout<<"OK"<<endl;
 }
 
 void MainWindow::homePageButtonClicked()
@@ -245,7 +266,7 @@ void MainWindow::commentPageButtonClicked()
                 .arg((*comment)->getUser()->getName())
                 .arg((*comment)->getText())
                 .arg(COMMENT_REPLY)
-                .arg((*comment)->getId())
+                .arg((*comment)->getId() + ":" + (*comment)->getStatus()->getId())
                 .arg(REPOST)
                 .arg((*comment)->getId())
                 );

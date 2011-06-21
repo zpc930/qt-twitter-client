@@ -25,31 +25,30 @@
 #include <QtWebKit>
 #include <QMessageBox>
 
-SendStatusDialog::SendStatusDialog(Send_Category category,int user_id,int comment_id):
-    ui(new Ui::SendStatusDialog)
-{
-    this->diadialogType=category;
-    this->userId=user_id;
-    this->commentId=comment_id;
+char* sendCategoryStr[CATEGORY_MAX] = {
+    "",
+    "发布新微博",
+    "发布评论",
+    "回复评论",
+    "转发微博",
+    "发私信"
+    };
 
-    ui->setupUi(this);
-    this->wordsLimit=140;
-    this->setWindowTitle(tr("发表新微博"));
-    QObject::connect(ui->pushButton_SendStatus,SIGNAL(clicked()), this, SLOT(sendButtonClicked()));
-
-}
-
-SendStatusDialog::SendStatusDialog(Send_Category category,int user_id,Status st):
+SendStatusDialog::SendStatusDialog(Send_Category category, QString statusId, QString commentId, int userId):
         ui(new Ui::SendStatusDialog)
 {
-    this->diadialogType=category;
-    this->userId=user_id;
-    this->st=new Status(st);
+    this->dialogType = category;
+    this->userId = userId;
+    this->statusId = statusId;
+    this->commentId = commentId;
     ui->setupUi(this);
-    this->wordsLimit=140;
-    this->setWindowTitle(tr("发表新微博"));
-    QObject::connect(ui->pushButton_SendStatus,SIGNAL(clicked()), this, SLOT(sendButtonClicked()));
-
+    this->wordsLimit = 140;
+    this->setWindowTitle(tr(sendCategoryStr[category]));
+    QObject::connect(ui->pushButton_SendStatus, SIGNAL(clicked()), this, SLOT(sendButtonClicked()));
+    //QObject::connect(this, SIGNAL(finished(int)), this, SLOT(done(int)));
+    //QObject::connect(this, SIGNAL(accepted()), this, SLOT(accept()));
+    qDebug("type:%d, userId:%d, status:%s, comment:%s",
+           category, userId, statusId.toStdString().c_str(), commentId.toStdString().c_str());
 }
 
 SendStatusDialog::~SendStatusDialog()
@@ -60,24 +59,37 @@ SendStatusDialog::~SendStatusDialog()
 
 void SendStatusDialog::sendButtonClicked()
 {
+    MiniBlogProvider* provider = ManagerFactory::getInstance()->getProvider(PROVIDER_SINA);
+    Status* status;
+    Comment* comment;
     ui->pushButton_SendStatus->setEnabled(false);
     ui->pushButton_SendStatus->setText("发表中...");
-    qDebug("dialog type is %d", dialogType);
-
-    if(dialogType==)
-    {
-        sendStatus(ui->textEdit_statusContent->document()->toPlainText());
+    qDebug("content is %s",ui->textEdit_statusContent->toPlainText().toStdString().c_str());
+    switch(this->dialogType) {
+        case STATUS:
+            status = new Status(ui->textEdit_statusContent->toPlainText().toStdString().c_str());
+            provider->updateStatus(*status);
+            delete status;
+            break;
+        case COMMENT:
+        case COMMENT_REPLY:
+            qDebug("comment id is %s", this->commentId.toStdString().c_str());
+            comment = new Comment(ui->textEdit_statusContent->toPlainText().toStdString().c_str(), this->statusId, this->commentId);
+            provider->updateComment(*comment);
+            delete comment;
+            break;
+        case REPOST:
+            status = new Status(ui->textEdit_statusContent->toPlainText().toStdString().c_str());
+            status->setInReplyInfo(this->statusId.toStdString().c_str(), 0, "");
+            provider->updateStatus(*status);
+            delete status;
+            break;
+        default:
+            break;
     }
-    else if(dialogType==)
-       repost(id, ui->textEdit_statusContent->document()->toPlainText());
-    else if(dialogType==)
-        commentStatus(id, ui->textEdit_statusContent->document()->toPlainText());
-    else if(dialogType==)
-        this->replyComment(cid, id, ui->textEdit_statusContent->document()->toPlainText());
-    else if(dialogType==)
-        this->sendDirectMessage(id, ui->textEdit_statusContent->document()->toPlainText());
-}
 
+    //emit accepted();
+}
 
 
 void SendStatusDialog::wordsCount()
@@ -89,10 +101,4 @@ void SendStatusDialog::wordsCount()
     else
         ui->pushButton_SendStatus->setEnabled(false);
     ui->label_wordsCount->setText(QString::number(wordsLimit - content.length()));
-}
-
-
-void SendStatusDialog::setText(QString text)
-{
-    ui->textEdit_statusContent->append(text);
 }

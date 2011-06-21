@@ -117,7 +117,7 @@ Status::Status()
 {
     this->init();
 }
-Status::Status(char* text)
+Status::Status(const char* text)
 {
     this->init();
     this->setText(text);
