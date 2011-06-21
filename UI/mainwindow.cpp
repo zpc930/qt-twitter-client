@@ -58,7 +58,9 @@ MainWindow::MainWindow() :
 
     // 设置当前用户
     currentUserId = atoi(UserId.c_str());
+    cout<<currentUserId<<endl;
     this->currentUser = sina->getUser(currentUserId);
+    cout<<currentUserId<<endl;
 
     this->ui->webView_Main->setPage(new QWebPage(this));
     //this->timer = new QTimer(this);// timer
@@ -76,6 +78,7 @@ MainWindow::MainWindow() :
     QObject::connect(ui->toolButton_HomePage, SIGNAL(clicked()), this, SLOT(homePageButtonClicked()) );
     QObject::connect(ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
     QObject::connect(ui->toolButton_AtMePage, SIGNAL(clicked()), this, SLOT(mentionMePageButtonClicked()) );
+    QObject::connect(ui->toolButton_CommentPage, SIGNAL(clicked()), this, SLOT(commentPageButtonClicked()) );
     //QObject::connect(ui->toolButton_configure, SIGNAL(clicked()), this, SLOT(configureButtonClicked()));
     QObject::connect(ui->webView_Main, SIGNAL(linkClicked(QUrl)), this, SLOT(configureButtonClicked(QUrl)));
 
@@ -214,6 +217,41 @@ void MainWindow::mentionMePageButtonClicked()
     //    dealWebkitEvent->sendStatusesCounts(countsInJsonFormat);
     //    delete sina;
 }
+
+void MainWindow::commentPageButtonClicked()
+{
+
+    // 清空原有信息
+    myWeiboPageHtml.clear();
+
+    // 获取mentions微博列表
+    lsComment = sina->getCommentsTimeline();
+
+    QString tmp;
+    for (list<Comment*>::iterator comment = lsComment.begin(); comment != lsComment.end(); comment++) {
+        tmp.append(statusHtml
+                .arg((*comment)->getUser()->getName())
+                .arg((*comment)->getText())
+                .arg((*comment)->getId())
+                .arg((*comment)->getId())
+                );
+    }
+    myWeiboPageHtml.append(tmp.toAscii());
+    qDebug("Our return is"+tmp.toAscii());
+    myWeiboPageHtml.append( "<a>首页</a>"
+            "<a>下一页</a>"
+            "");
+    ui->webView_Main->setHtml(myWeiboPageHtml);
+    //this->setWebviewHtml(myWeiboPageHtml);
+    //    QString countsInJsonFormat = sina->getStatusCountsByJson(account->userWeiboPageStatus);
+    //    while(!dealWebkitEvent->isDomReady())
+    //    {
+    //        QApplication::processEvents();
+    //    }
+    //    dealWebkitEvent->sendStatusesCounts(countsInJsonFormat);
+    //    delete sina;
+}
+
 
 void MainWindow::preHtml()
 {

@@ -32,6 +32,7 @@ public:
     /* Comments */
     list<Comment*> getCommentByStatus(QString statusId, int count = 20, int page = 1);
     int updateComment(Comment& comment);
+    list<Comment*> getCommentsTimeline(int count = 20, int page = 1);
     
     /*Users*/
     User* getUser(int id);
