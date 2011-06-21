@@ -34,7 +34,7 @@ public:
     int updateComment(Comment& comment);
     
     /*Users*/
-    User getUser(int id);
+    User* getUser(int id);
 };
 
 #endif // SINAAPIPROVIDER_H
