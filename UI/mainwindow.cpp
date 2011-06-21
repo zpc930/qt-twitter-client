@@ -62,13 +62,13 @@ MainWindow::MainWindow() :
 
     this->ui->webView_Main->setPage(new QWebPage(this));
     //this->timer = new QTimer(this);// timer
-    ui->toolButton_UserName->setText(tr("GoDefine"));
+    //ui->toolButton_UserName->setText(tr("GoDefine"));
     cout<<"UseId"<<currentUserId<<endl;
 
     ui->toolButton_Friends->setText(tr("微博数 %1").arg(currentUser->getStatuses_count()));
     ui->toolButton_Follower->setText(tr("粉丝数 %1").arg(currentUser->getFollowers_count()));
     ui->toolButton_WeiboCount->setText(tr("收藏数 %1").arg(currentUser->getFavourites_count()));
-    ui->toolButton_UserName->setText(currentUser->getScreen_name());
+    //ui->toolButton_UserName->setText(currentUser->getScreen_name());
     //ui->toolButton_Logo->setIcon(currentUser->getProfile_image_url());
 
     ui->webView_Main->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
