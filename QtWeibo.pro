@@ -12,7 +12,8 @@ HEADERS += \
     include/api/sina/SinaComment.h \
     include/api/sina/SinaApiProvider.h \
     include/api/sina/SinaApi.h \
-    include/factory/ManagerFactory.h
+    include/factory/ManagerFactory.h \
+    UI/sendstatusdialog.h
 
 INCLUDEPATH += include
 
@@ -34,7 +35,8 @@ LIBS += \
 
 SOURCES += \
     UI/mainwindow.cpp \
-    UI/QtWeibo.cpp
+    UI/QtWeibo.cpp \
+    UI/sendstatusdialog.cpp
 
 
 FORMS += \

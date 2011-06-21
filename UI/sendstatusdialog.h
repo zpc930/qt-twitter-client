@@ -30,20 +30,19 @@
 #include <string.h>
 #include <oauth.h>
 #include <iostream>
-#include <include/oauth/OauthHelper.h>
-#include <include/api/sina/SinaParam.h>
-#include <include/api/sina/SinaApi.h>
-#include <include/api/sina/SinaParam.h>
-#include <include/api/sina/SinaApiProvider.h>
-#include <include/api/ApiGlobal.h>
+#include <oauth/OauthHelper.h>
+#include <api/ApiGlobal.h>
+#include <api/ApiProvider.h>
+#include <factory/ManagerFactory.h>
 
 //发表新微博～回复微博～回复评论～回复状态
 enum Send_Category{
-        STATUS=1,
-        COMMENT,
-        COMMENT_REPLY,
-        REPOST,
-        DIRECT_MESSAGE
+    STATUS=1,
+    COMMENT,
+    COMMENT_REPLY,
+    REPOST,
+    DIRECT_MESSAGE,
+    CATEGORY_MAX
 };
 
 namespace Ui {
@@ -59,8 +58,7 @@ class SendStatusDialog : public QDialog
     Q_OBJECT
 
 public:
-    SendStatusDialog(Send_Category category,int user_id,int comment_id);
-    SendStatusDialog(Send_Category category,int user_id,Status st);
+    SendStatusDialog(Send_Category category, QString statusId, QString commentId, int userId);
     ~SendStatusDialog();
     
 public slots:
@@ -74,8 +72,8 @@ private:
     int wordsLimit; //字数限制
     Send_Category dialogType;   //发送类型
     int userId;     //用户ID
-    int commentId;  //评论ID号
-    Status st;      //用户status
+    QString statusId;  //微博ID号
+    QString commentId;  //评论ID号
 };
 
 #endif // SENDSTATUSDIALOG_H

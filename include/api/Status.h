@@ -87,7 +87,7 @@ public:
 
     /* constructors */
     Status();
-    Status(char* text);
+    Status(const char* text);
 
     ~Status();
 };

@@ -15,9 +15,8 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForTr(encoding);
     QTextCodec::setCodecForLocale(encoding);
     QTextCodec::setCodecForCStrings(encoding);
-    QApplication::setQuitOnLastWindowClosed(false);
+    QApplication::setQuitOnLastWindowClosed(true);
     MainWindow w;
     w.show();
     return weibo.exec();
-
 }
