@@ -182,6 +182,7 @@ void MainWindow::mentionMePageButtonClicked()
     myWeiboPageHtml.clear();
 
     // 获取mentions微博列表
+    cout<<"Get mentions"<<endl;
     lsStatus = sina->getMentions();
     QString statusHtml="<div style='background-color:#B1D0D9;margin-bottom:3px;'>"\
                         "<div style='font-weight:bold;color:blue;font-size:14px;background-color:#B1D0D9;border-bottom:solid 1px grey'>%1 说：</div>"\
