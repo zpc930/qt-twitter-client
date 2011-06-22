@@ -15,8 +15,8 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNodeList>
 #include <QtXml/QDomNode>
+#include <QtCore/QMap>
 #include <api/Status.h>
-#include <qmap.h>
 
 #define NODE_USER_ROOT "user"
 

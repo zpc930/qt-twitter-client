@@ -9,6 +9,6 @@
 #define BITMAP_TEST(map, id)    ((map) & NUM_TO_BIT(id))
 #define BITMAP_CLEAN(map, id)   ((map) &= ~(NUM_TO_BIT(id)))
 
-#define API_PROVIDER_DEBUG 1
+#define API_PROVIDER_DEBUG 0
 
 #endif // API_GLOBAL_H
