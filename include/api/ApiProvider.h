@@ -28,6 +28,8 @@ public:
 
     /*Users*/
     virtual User* getUser(int id) = 0;
+    virtual list<User*> getHotUser(enum User_Category_Key category_Key)=0;
+    virtual list<User*> getSuggestionsUser(bool with_reason)=0;
 
     /*oauth*/
     int OauthStep1(string * url);
