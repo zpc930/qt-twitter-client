@@ -16,8 +16,10 @@
 #include <QtXml/QDomNodeList>
 #include <QtXml/QDomNode>
 #include <api/Status.h>
+#include <qmap.h>
 
 #define NODE_USER_ROOT "user"
+
 #define USER_NODE_NAME_ID "id"
 #define USER_NODE_NAME_SCREEN_NAME "screen_name"
 #define USER_NODE_NAME_NAME "name"
@@ -37,7 +39,6 @@
 #define USER_NODE_NAME_VERIFIED "verified"
 #define USER_NODE_NAME_STATUS "status"
 
-
 class SinaUser:public User
 {
 public:
@@ -46,6 +47,9 @@ public:
 	void loadListFromXml(QDomDocument docXml, list<User*>& lsUser);
 	void setStatus(Status* status);
 	Status* getStatus();
+//	static QString *Sina_User_Category[];
+	static QMap<enum User_Category_Key,QString *> * Sina_User_Category_Map;
+	static QMap<enum User_Category_Key,QString *> * initCategoryMap();
 
 private:
 	Status* status;
