@@ -4,6 +4,7 @@
 #include <api/ApiProvider.h>
 #include <api/sina/SinaParam.h>
 #include <api/sina/SinaStatus.h>
+#include <api/sina/SinaUser.h>
 #include <api/User.h>
 
 #define SINA_WEIBO_URL "http://api.t.sina.com.cn"
@@ -36,6 +37,8 @@ public:
     
     /*Users*/
     User* getUser(int id);
+    list<User*> getHotUser(enum User_Category_Key category_Key);
+    list<User*> getSuggestionsUser(bool with_reason);
 };
 
 #endif // SINAAPIPROVIDER_H
