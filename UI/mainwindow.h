@@ -15,11 +15,19 @@
 #include <include/api/sina/SinaParam.h>
 #include <include/api/sina/SinaApiProvider.h>
 #include <include/api/ApiGlobal.h>
+#include <qtimer.h>
 #include "sendstatusdialog.h"
 
 namespace Ui {
     class MainWindow;
 }
+/*当前所在页面枚举类型*/
+enum Current_Position{
+	HOMEPAGE,
+	MYWEIBOPAGE,
+	MENTIONMEPAGE,
+	COMMENTPAGE
+};
 
 /*! \class MainWindow
  * \brief 显示主窗口
@@ -43,6 +51,7 @@ public slots:
     void commentPageButtonClicked();
     void linkButtonClicked(QUrl url);
     void preHtml();
+    void timeHere();
 
     
 private:
@@ -70,6 +79,14 @@ private:
     MiniBlogProvider * sina;
     User *currentUser;
     int ret;
+
+    /*定时器，控制定时刷新当前所在页面*/
+    QTimer * mainTimer;
+    /*记录当前所在页面，与定时器配合使用*/
+    enum Current_Position currentposition;
+    int refreshGap;
+
+
 
 protected:
 
