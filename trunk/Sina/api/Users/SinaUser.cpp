@@ -10,6 +10,25 @@
 SinaUser::SinaUser():status(NULL){
 
 }
+QMap<enum User_Category_Key,QString *> * SinaUser::Sina_User_Category_Map=SinaUser::initCategoryMap();
+
+QMap<enum User_Category_Key,QString *> * SinaUser::initCategoryMap(){
+	QMap<enum User_Category_Key,QString *> * tmpMap=new QMap<enum User_Category_Key,QString *>;
+	(*tmpMap)[USER_CATEGORY_DEFAULT]=new QString("default");
+	(*tmpMap)[USER_CATEGORY_ENT]=new QString("ent");
+	(*tmpMap)[USER_CATEGORY_HK_FAMOUS]=new QString("hk_famous");
+	(*tmpMap)[USER_CATEGORY_MODEL]=new QString("model");
+	(*tmpMap)[USER_CATEGORY_COOKING]=new QString("cooking");
+	(*tmpMap)[USER_CATEGORY_SPORT]=new QString("sport");
+	(*tmpMap)[USER_CATEGORY_FINANCE]=new QString("finance");
+	(*tmpMap)[USER_CATEGORY_TECH]=new QString("tech");
+	(*tmpMap)[USER_CATEGORY_SINGER]=new QString("singer");
+	(*tmpMap)[USER_CATEGORY_WRITER]=new QString("writer");
+	(*tmpMap)[USER_CATEGORY_MODERATOR]=new QString("moderator");
+	(*tmpMap)[USER_CATEGORY_MEDIUM]=new QString("medium");
+	(*tmpMap)[SER_CATEGORY_STOCKPLAYER]=new QString("stockplayer");
+	return tmpMap;
+};
 
 void SinaUser::loadFromXml(QDomNode node){
 	QDomNodeList lsChild = node.childNodes();
