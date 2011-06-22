@@ -19,7 +19,7 @@
 #include <factory/ManagerFactory.h>
 
 MainWindow::MainWindow() :
-        ui(new Ui::MainWindow)
+        ui(new Ui::MainWindow),refreshGap(50000)
 {
     ui->setupUi(this);
     ret=0;
@@ -75,6 +75,11 @@ MainWindow::MainWindow() :
 
     ui->webView_Main->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
 
+    /*新建一个定时器，并连接到timeHere()，以一定时间反复的触发*/
+    mainTimer = new QTimer(this);
+    QObject::connect( mainTimer, SIGNAL(timeout()), this, SLOT(timeHere()) );
+    mainTimer->start(refreshGap);
+
     QObject::connect(ui->toolButton_HomePage, SIGNAL(clicked()), this, SLOT(homePageButtonClicked()) );
     QObject::connect(ui->toolButton_MyWeiboPage, SIGNAL(clicked()), this, SLOT(myWeiboPageButtonClicked()) );
     QObject::connect(ui->toolButton_AtMePage, SIGNAL(clicked()), this, SLOT(mentionMePageButtonClicked()) );
@@ -106,6 +111,42 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/*
+ * 定时器定时触发的函数
+ * 根据当前所处页面，定期的刷新当前页面
+ * */
+void MainWindow::timeHere()
+{
+    switch(currentposition)  {
+        case HOMEPAGE:
+        	homePageButtonClicked();
+#if API_PROVIDER_DEBUG
+        	cout<<"Time: HOMEPAGE"<<endl;
+#endif
+            break;
+        case MYWEIBOPAGE:
+        	myWeiboPageButtonClicked();
+#if API_PROVIDER_DEBUG
+        	cout<<"Time: MYWEIBOPAGE"<<endl;
+#endif
+        	break;
+        case MENTIONMEPAGE:
+        	mentionMePageButtonClicked();
+#if API_PROVIDER_DEBUG
+        	cout<<"Time: MENTIONMEPAGE"<<endl;
+#endif
+            break;
+        case COMMENTPAGE:
+        	commentPageButtonClicked();
+#if API_PROVIDER_DEBUG
+        	cout<<"Time: COMMENPAGE"<<endl;
+#endif
+        	break;
+        default:
+            break;
+    }
+}
+
 void MainWindow::linkButtonClicked(QUrl url)
 {
     cout<<"loading"<<endl;
@@ -133,6 +174,8 @@ void MainWindow::linkButtonClicked(QUrl url)
 
 void MainWindow::showHomePage()
 {
+	//设置当前所在页面位置
+	currentposition=HOMEPAGE;
     // 清空原有信息
     myWeiboPageHtml.clear();
 
@@ -169,6 +212,11 @@ void MainWindow::newWeiboButtonClicked()
 
 void MainWindow::homePageButtonClicked()
 {
+	//设置当前所在页面位置
+	currentposition=HOMEPAGE;
+#if API_PROVIDER_DEBUG
+	cout<<"homePageButtonClicked or timeHere"<<endl;
+#endif
     // 清空原有信息
     myWeiboPageHtml.clear();
 
@@ -206,6 +254,11 @@ void MainWindow::homePageButtonClicked()
 void MainWindow::myWeiboPageButtonClicked()
 {
 
+	//设置当前所在页面位置
+	currentposition=MYWEIBOPAGE;
+#if API_PROVIDER_DEBUG
+	cout<<"myWeiboPageButtonClicked or timeHere"<<endl;
+#endif
     // 清空原有信息
     myWeiboPageHtml.clear();
 
@@ -243,7 +296,11 @@ void MainWindow::myWeiboPageButtonClicked()
 
 void MainWindow::mentionMePageButtonClicked()
 {
-
+	//设置当前所在页面位置
+	currentposition=MENTIONMEPAGE;
+#if API_PROVIDER_DEBUG
+	cout<<"mentionMePageButtonClicked or timeHere"<<endl;
+#endif
     // 清空原有信息
     myWeiboPageHtml.clear();
 
@@ -281,6 +338,11 @@ void MainWindow::mentionMePageButtonClicked()
 void MainWindow::commentPageButtonClicked()
 {
 
+	//设置当前所在页面位置
+	currentposition=COMMENTPAGE;
+#if API_PROVIDER_DEBUG
+	cout<<"commentPageButtonClicked or timeHere"<<endl;
+#endif
     // 清空原有信息
     myWeiboPageHtml.clear();
 
